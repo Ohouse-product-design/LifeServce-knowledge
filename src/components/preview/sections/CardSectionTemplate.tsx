@@ -42,6 +42,7 @@ export default function CardSectionTemplate({
           usage={cardProps.usage}
           layout={cardProps.layout}
           cells={cardProps.cells}
+          cardType={cardProps.cardType}
           viewport={viewport}
           previewAsset={
             onRequestAssetSlot && cardInstance

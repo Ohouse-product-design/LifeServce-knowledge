@@ -26,7 +26,7 @@ function FullPage() {
 }
 
 const meta: Meta<typeof FullPage> = {
-  title: "Lead/Page (Full)",
+  title: "Preview/Full Page",
   component: FullPage,
   ...leadStoryDefaults,
 };

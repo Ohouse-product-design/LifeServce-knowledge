@@ -15,6 +15,8 @@ import { create } from "zustand";
 import { seedDoc } from "@/lib/seed";
 import {
   CARD_USAGE_PRESETS,
+  FAQCARD_CELL_LIMITS,
+  buildAutoCellsForSection,
   defaultLayoutSettings,
   type CardCell,
   type CardLayout,
@@ -72,6 +74,7 @@ export interface BuilderState {
   // -------- Section ops --------
   reorderSections: (fromId: string, toId: string) => void;
   addSection: (preset: SectionPresetId, variant?: string) => void;
+  composeFromPrompt: (prompt: string) => Promise<void>;
   removeSection: (sectionId: string) => void;
   updateSectionProp: (sectionId: string, key: string, value: unknown) => void;
   bindSectionToken: (sectionId: string, binding: TokenBinding) => void;
@@ -192,7 +195,7 @@ function mapCardInstance(
 // Store
 // ---------------------------------------------------------------------------
 
-export const useBuilderStore = create<BuilderState>((set) => ({
+export const useBuilderStore = create<BuilderState>((set, get) => ({
   doc: seedDoc,
   selection: {
     sectionId: seedDoc.sections.find((s) => !s.locked)?.id ?? null,
@@ -253,13 +256,38 @@ export const useBuilderStore = create<BuilderState>((set) => ({
           : variant === "marketing-contact"
             ? " · 문의 박스"
             : "";
+      const sectionId = `sec-${preset}-${Math.random().toString(36).slice(2, 8)}`;
+
+      // 카드 슬롯이 있으면 자동으로 card instance + 디폴트 cells 생성
+      const cardComponentId = `${sectionId}-card`;
+      const auto = buildAutoCellsForSection(preset, cardComponentId);
+      const initialSlots: Section["slots"] = auto
+        ? {
+            content: [
+              {
+                id: cardComponentId,
+                preset: "card",
+                props: ({
+                  usage: auto.usage,
+                  cardType: auto.cardType,
+                  layout: defaultLayoutSettings(
+                    CARD_USAGE_PRESETS[auto.usage].defaultLayout
+                  ),
+                  cells: auto.cells,
+                } as unknown) as Record<string, unknown>,
+                assets: [],
+              },
+            ],
+          }
+        : {};
+
       const newSection: Section = {
-        id: `sec-${preset}-${Math.random().toString(36).slice(2, 8)}`,
+        id: sectionId,
         preset,
         name: `${def.label}${variantNameSuffix}`,
         locked: def.defaultLocked,
         props: variant ? { variant } : {},
-        slots: {},
+        slots: initialSlots,
         assets: [],
         visibility: { mobile: true, tablet: true, desktop: true },
       };
@@ -270,8 +298,124 @@ export const useBuilderStore = create<BuilderState>((set) => ({
       if (def.defaultLocked) next.push(newSection);
       else if (stickyIdx >= 0) next.splice(stickyIdx, 0, newSection);
       else next.push(newSection);
-      return { doc: bumpAudit({ ...state.doc, sections: next }) };
+      return {
+        doc: bumpAudit({ ...state.doc, sections: next }),
+        // 새 섹션을 자동 선택 → PreviewRenderer 가 해당 위치로 scroll
+        selection: { sectionId: newSection.id, componentId: null, cellId: null },
+      };
     }),
+
+  /**
+   * 프롬프트 → 섹션 자동 구성 (SPEC §4 v1).
+   * 1) lib/prompt-compose.ts 의 매처 결과대로 addSection + props/cells override
+   * 2) imgcard/listcard 의 media/icon 슬롯에 stock photo 비동기 자동 임베드 (Phase 37)
+   */
+  composeFromPrompt: async (prompt) => {
+    const { composeFromPrompt, seedCellsToCardCells, pickImageQueryForCell } =
+      await import("@/lib/prompt-compose");
+    const plan = await composeFromPrompt(prompt);
+
+    // 추가된 section + 매칭 entry 를 매핑 (Phase 2 이미지 fill 에서 사용)
+    const addedSections: Array<{ entry: typeof plan.sections[number]; sectionId: string }> = [];
+
+    // 순차 실행 — addSection 자체가 selection 갱신 + scroll 트리거
+    for (const entry of plan.sections) {
+      get().addSection(entry.preset, entry.variant);
+      const sectionId = get().selection.sectionId;
+      if (!sectionId) continue;
+      addedSections.push({ entry, sectionId });
+
+      // props 오버라이드 (sectionTitle 등)
+      if (entry.props) {
+        for (const [k, v] of Object.entries(entry.props)) {
+          get().updateSectionProp(sectionId, k, v);
+        }
+      }
+      // seedCells 가 있으면 자동 생성된 card 의 cells 를 교체
+      if (entry.seedCells && entry.seedCells.length > 0) {
+        set((state) => ({
+          doc: bumpAudit({
+            ...state.doc,
+            sections: state.doc.sections.map((s) => {
+              if (s.id !== sectionId) return s;
+              const contentSlot = s.slots["content"];
+              if (!contentSlot || contentSlot.length === 0) return s;
+              const card = contentSlot[0];
+              if (card.preset !== "card") return s;
+              const cells = seedCellsToCardCells(entry.seedCells!, card.id);
+              return mapCardInstance(s, card.id, (inst, p) =>
+                setCardProps(inst, { ...p, cells })
+              );
+            }),
+          }),
+        }));
+      }
+    }
+    set((state) => ({ doc: bumpAudit(state.doc) }));
+
+    // ── Phase 2: 비동기 이미지 fill ─────────────────────────────
+    // 사용자는 페이지 구조를 즉시 보고, 이미지는 백그라운드에서 채워짐.
+    // 호출 throttle: 동시 4개, 페이지당 최대 12장 (rate limit 대응).
+    void (async () => {
+      const { searchStockPhotos } = await import("@/lib/stock-photos");
+      const MAX_PER_COMPOSE = 12;
+      let fetched = 0;
+
+      type FillTask = {
+        sectionId: string;
+        cardId: string;
+        cellId: string;
+        slotName: "media" | "icon";
+        query: string;
+      };
+      const tasks: FillTask[] = [];
+
+      for (const { entry, sectionId } of addedSections) {
+        const section = get().doc.sections.find((s) => s.id === sectionId);
+        if (!section) continue;
+        const card = section.slots["content"]?.[0];
+        if (!card || card.preset !== "card") continue;
+        const props = card.props as unknown as CardProps;
+        // 이미지 슬롯이 있는 변형만
+        const slotName: "media" | "icon" | null =
+          props.usage === "imgcard"
+            ? "media"
+            : props.usage === "listcard"
+              ? "icon"
+              : null;
+        if (!slotName) continue;
+        const sectionTitle = (entry.props?.sectionTitle as string | undefined) ?? section.props.sectionTitle as string | undefined;
+        for (const cell of props.cells) {
+          tasks.push({
+            sectionId,
+            cardId: card.id,
+            cellId: cell.id,
+            slotName,
+            query: pickImageQueryForCell(cell.slots, sectionTitle),
+          });
+          if (tasks.length >= MAX_PER_COMPOSE) break;
+        }
+        if (tasks.length >= MAX_PER_COMPOSE) break;
+      }
+
+      // throttle: 동시 4개씩
+      const CONCURRENCY = 4;
+      const runOne = async (task: FillTask) => {
+        if (fetched >= MAX_PER_COMPOSE) return;
+        const photos = await searchStockPhotos(task.query, { perPage: 5 }).catch(() => []);
+        const photo = photos[0];
+        if (!photo) return;
+        fetched += 1;
+        get().updateCardCellSlot(task.sectionId, task.cardId, task.cellId, task.slotName, {
+          kind: "asset",
+          asset: { type: "image", url: photo.largeUrl, alt: photo.alt },
+        });
+      };
+      for (let i = 0; i < tasks.length; i += CONCURRENCY) {
+        await Promise.all(tasks.slice(i, i + CONCURRENCY).map(runOne));
+      }
+    })();
+  },
 
   removeSection: (sectionId) =>
     set((state) => {
@@ -439,9 +583,16 @@ export const useBuilderStore = create<BuilderState>((set) => ({
           if (s.id !== sectionId) return s;
           return mapCardInstance(s, componentId, (inst, props) => {
             if (props.usage === usage) return inst;
-            // cells 의 slot 데이터는 그대로 유지 — Card 가 usage 별 CellRenderer 로
-            // 분기하므로 새 usage 에서 쓰지 않는 슬롯은 자연스럽게 무시된다.
-            return setCardProps(inst, { ...props, usage });
+            // 변형 전환 시 cells 를 새 usage 의 defaultCell 로 재생성.
+            // 사용자가 reviewcard → tablecard 같은 큰 변경 시 즉시 의미 있는 자리표시자 카드를 보도록.
+            // (cell 개수는 유지: 데이터 손실 우려 vs 새 자리표시자 확보 사이의 균형)
+            const newPreset = CARD_USAGE_PRESETS[usage];
+            const count = Math.max(1, props.cells.length);
+            const newCells: CardCell[] = Array.from({ length: count }).map((_, i) => ({
+              id: `${componentId}-cell-${Date.now()}-${i}`,
+              slots: newPreset.defaultCell(),
+            }));
+            return setCardProps(inst, { ...props, usage, cells: newCells });
           });
         }),
       }),
@@ -455,6 +606,10 @@ export const useBuilderStore = create<BuilderState>((set) => ({
           if (s.id !== sectionId) return s;
           return mapCardInstance(s, componentId, (inst, props) => {
             const usagePreset = CARD_USAGE_PRESETS[props.usage];
+            // faqcard 는 4–10 사이로 cell 수 제한
+            if (props.usage === "faqcard" && props.cells.length >= FAQCARD_CELL_LIMITS.max) {
+              return inst;
+            }
             const newCell: CardCell = {
               id: `cell-${Math.random().toString(36).slice(2, 8)}`,
               slots: usagePreset.defaultCell(),
@@ -482,6 +637,10 @@ export const useBuilderStore = create<BuilderState>((set) => ({
           sections: state.doc.sections.map((s) => {
             if (s.id !== sectionId) return s;
             return mapCardInstance(s, componentId, (inst, props) => {
+              // faqcard 는 최소 4개 유지
+              if (props.usage === "faqcard" && props.cells.length <= FAQCARD_CELL_LIMITS.min) {
+                return inst;
+              }
               return setCardProps(inst, {
                 ...props,
                 cells: props.cells.filter((c) => c.id !== cellId),

@@ -6,11 +6,9 @@ import { cn } from "@/lib/cn";
 import { IconChevronRight } from "@/lib/ods-icons";
 import { SECTION_PRESETS } from "@/schema/section-presets";
 import { useBuilderStore } from "@/store/builder-store";
-import {
-  SECTION_ADD_BASIC_PRESET_IDS,
-  SECTION_ADD_MARKETING_ENTRIES,
-  sectionAddMenuLabel,
-} from "./section-add-menu";
+import { SECTION_ADD_GROUPS } from "./section-add-menu";
+import { SECTION_THUMBNAILS } from "./SectionThumbnails";
+import ComposePrompt from "./ComposePrompt";
 
 /**
  * 좌측 섹션 트리.
@@ -103,7 +101,9 @@ export default function SectionTree() {
         })}
       </div>
 
-      <div className="relative shrink-0 border-t border-builder-border p-3">
+      <div className="relative shrink-0 space-y-2 border-t border-builder-border p-3">
+        {/* 프롬프트 → 페이지 자동 구성 (BD 사용자 대상) */}
+        <ComposePrompt />
         <button
           type="button"
           onClick={() => setAddMenuOpen((v) => !v)}
@@ -112,45 +112,48 @@ export default function SectionTree() {
           + 섹션 추가
         </button>
         {addMenuOpen && (
-          <div className="absolute bottom-14 left-3 right-3 z-10 max-h-[60vh] overflow-y-auto rounded-ods-8 border border-builder-border bg-builder-panel-2 p-1 shadow-xl">
-            <p className="px-2 pt-1 pb-0.5 text-[10px] uppercase tracking-wider text-builder-muted">
-              기본
-            </p>
-            {SECTION_ADD_BASIC_PRESET_IDS.map((p) => {
-              const def = SECTION_PRESETS[p];
-              return (
-                <button
-                  key={p}
-                  type="button"
-                  onClick={() => {
-                    addSection(p);
-                    setAddMenuOpen(false);
-                  }}
-                  className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left hover:bg-builder-panel"
-                >
-                  <IconChevronRight size={12} className="shrink-0 text-builder-muted" />
-                  <span className="block text-[12px]">{def.label}</span>
-                </button>
-              );
-            })}
-            <p className="mt-1 px-2 pt-1 pb-0.5 text-[10px] uppercase tracking-wider text-builder-muted">
-              마케팅 풀페이지 UI
-            </p>
-            {SECTION_ADD_MARKETING_ENTRIES.map((entry) => (
-              <button
-                key={`${entry.preset}-${entry.variant}`}
-                type="button"
-                onClick={() => {
-                  addSection(entry.preset, entry.variant);
-                  setAddMenuOpen(false);
-                }}
-                className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left hover:bg-builder-panel"
-              >
-                <IconChevronRight size={12} className="shrink-0 text-builder-muted" />
-                <span className="block text-[12px]">
-                  {sectionAddMenuLabel(entry.preset, entry.variant)}
-                </span>
-              </button>
+          <div className="absolute bottom-14 left-3 right-3 z-10 max-h-[70vh] w-[460px] max-w-[calc(100vw-2rem)] overflow-y-auto rounded-ods-8 border border-builder-border bg-builder-panel-2 p-3 shadow-xl">
+            {SECTION_ADD_GROUPS.map((group, gi) => (
+              <div key={group.id} className={gi > 0 ? "mt-4" : ""}>
+                <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wider text-builder-muted">
+                  {group.label}
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {group.entries.map((entry) => {
+                    const Thumb = SECTION_THUMBNAILS[entry.preset];
+                    return (
+                      <button
+                        key={`${entry.preset}-${entry.variant ?? "default"}-${entry.label}`}
+                        type="button"
+                        onClick={() => {
+                          addSection(entry.preset, entry.variant);
+                          setAddMenuOpen(false);
+                        }}
+                        className={cn(
+                          "group flex flex-col gap-2 overflow-hidden rounded-ods-8 border border-builder-border bg-builder-panel p-2 text-left transition-colors",
+                          "hover:border-builder-accent/60 hover:bg-builder-panel-2"
+                        )}
+                      >
+                        <div className="overflow-hidden rounded-ods-4 border border-builder-border/50 bg-white">
+                          {Thumb ? (
+                            <Thumb className="aspect-[5/3] w-full" />
+                          ) : (
+                            <div className="aspect-[5/3] w-full bg-builder-panel-2" />
+                          )}
+                        </div>
+                        <div className="space-y-0.5 px-0.5">
+                          <p className="text-[12px] font-semibold text-builder-text">
+                            {entry.label}
+                          </p>
+                          <p className="text-[11px] leading-snug text-builder-muted">
+                            {entry.description}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
           </div>
         )}

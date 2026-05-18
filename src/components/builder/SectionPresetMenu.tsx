@@ -1,22 +1,27 @@
 "use client";
 
 /**
- * SectionPresetMenu — SectionTree 의 "+ 섹션 추가" 메뉴와 동일한 UI 를
- * 데이터 props 로만 그리는 presentational 컴포넌트.
+ * SectionPresetMenu — SectionTree "+ 섹션 추가" 메뉴의 presentational 컴포넌트.
  *
- * 빌더 `SectionTree` 의 옵션 목록은 `section-add-menu.ts` 와 동기화되어 있다.
- * 이 컴포넌트는 외부에서 라벨/설명을 주입받아 Storybook Controls 패널에서 라벨 문구를
- * 실시간으로 편집·미리보기 할 수 있게 한다.
+ * v3 UI: 2-col card grid + 섹션별 SVG 썸네일 + 1문장 설명.
+ * 비디자이너·개발자가 카드 미리보기와 친근한 설명으로 직관적으로 섹션을 고를 수 있게 함.
  */
 
-import { IconChevronRight } from "@/lib/ods-icons";
+import { cn } from "@/lib/cn";
+import type { SectionPresetId } from "@/schema/section-presets";
+import { SECTION_THUMBNAILS } from "./SectionThumbnails";
 
 export interface SectionPresetMenuEntry {
+  /** 고유 식별자 (preset[+variant] 조합) */
   id: string;
+  /** 사용자 노출 라벨 (예: "서비스 안내") */
   label: string;
-  /** 없으면 SectionTree 와 같이 한 줄만 표시 */
-  description?: string;
+  /** 1문장 설명 (비디자이너·개발자 대상) */
+  description: string;
+  /** 그룹 라벨 (예: "서비스 소개 페이지") */
   group?: string;
+  /** 썸네일 매핑용 preset id */
+  preset: SectionPresetId;
 }
 
 export interface SectionPresetMenuProps {
@@ -39,28 +44,44 @@ export default function SectionPresetMenu({
   );
 
   return (
-    <div className="max-h-[60vh] w-[320px] overflow-y-auto rounded-ods-8 border border-builder-border bg-builder-panel-2 p-1 shadow-xl">
-      {Object.entries(groups).map(([group, list]) => (
-        <div key={group}>
-          <p className="px-2 pt-1 pb-0.5 text-[10px] uppercase tracking-wider text-builder-muted">
+    <div className="max-h-[70vh] w-[480px] overflow-y-auto rounded-ods-8 border border-builder-border bg-builder-panel-2 p-3 shadow-xl">
+      {Object.entries(groups).map(([group, list], gi) => (
+        <div key={group} className={gi > 0 ? "mt-4" : ""}>
+          <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-wider text-builder-muted">
             {group}
           </p>
-          {list.map((entry) => (
-            <button
-              key={entry.id}
-              type="button"
-              onClick={() => onPick?.(entry.id)}
-              className="flex w-full items-center gap-2 rounded px-2 py-1.5 text-left hover:bg-builder-panel"
-            >
-              <IconChevronRight size={12} className="shrink-0 text-builder-muted" />
-              <span>
-                <span className="block text-[12px] text-builder-text">{entry.label}</span>
-                {entry.description ? (
-                  <span className="block text-[10px] text-builder-muted">{entry.description}</span>
-                ) : null}
-              </span>
-            </button>
-          ))}
+          <div className="grid grid-cols-2 gap-2">
+            {list.map((entry) => {
+              const Thumb = SECTION_THUMBNAILS[entry.preset];
+              return (
+                <button
+                  key={entry.id}
+                  type="button"
+                  onClick={() => onPick?.(entry.id)}
+                  className={cn(
+                    "group flex flex-col gap-2 overflow-hidden rounded-ods-8 border border-builder-border bg-builder-panel p-2 text-left transition-colors",
+                    "hover:border-builder-accent/60 hover:bg-builder-panel-2"
+                  )}
+                >
+                  <div className="overflow-hidden rounded-ods-4 border border-builder-border/50 bg-white">
+                    {Thumb ? (
+                      <Thumb className="aspect-[5/3] w-full" />
+                    ) : (
+                      <div className="aspect-[5/3] w-full bg-builder-panel-2" />
+                    )}
+                  </div>
+                  <div className="space-y-0.5 px-0.5">
+                    <p className="text-[12px] font-semibold text-builder-text">
+                      {entry.label}
+                    </p>
+                    <p className="text-[11px] leading-snug text-builder-muted">
+                      {entry.description}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>

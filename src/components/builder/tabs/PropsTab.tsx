@@ -11,6 +11,7 @@ import {
   selectSelectedSection,
   useBuilderStore,
 } from "@/store/builder-store";
+import { SectionSlotsPanel } from "./SlotsTab";
 
 /**
  * Props 탭.
@@ -63,14 +64,14 @@ export default function PropsTab() {
             }
           />
         )}
-        {props.layout.type === "row" && (
-          <RowSettingsEditor
+        {props.layout.type === "list" && (
+          <ListSettingsEditor
             sectionId={section.id}
             componentId={component.id}
             settings={props.layout.settings}
             onChange={(s) =>
               updateCardLayoutSettings(section.id, component.id, {
-                type: "row",
+                type: "list",
                 settings: s,
               })
             }
@@ -86,36 +87,71 @@ export default function PropsTab() {
     ? COMPONENT_PRESETS[component.preset].uiSpec
     : SECTION_PRESETS[section.preset].uiSpec;
   const keys = Object.keys(spec);
-  if (keys.length === 0) {
+
+  // 컴포넌트가 선택된 경우 — props 만 편집 (슬롯 패널은 노출하지 않음)
+  if (component) {
+    if (keys.length === 0) {
+      return (
+        <p className="text-[12px] text-builder-muted">
+          이 프리셋은 props 가 정의되어 있지 않습니다.
+        </p>
+      );
+    }
     return (
-      <p className="text-[12px] text-builder-muted">
-        이 프리셋은 props 가 정의되어 있지 않습니다.
-      </p>
+      <div className="space-y-3">
+        <div className="text-[11px] uppercase tracking-wider text-builder-muted">
+          {COMPONENT_PRESETS[component.preset].label} Props
+        </div>
+        {keys.map((key) => (
+          <PropField
+            key={key}
+            field={key}
+            spec={spec[key] ?? {}}
+            value={target.props[key]}
+            onChange={(v) =>
+              updateComponentProp(section.id, component.id, key, v)
+            }
+          />
+        ))}
+      </div>
     );
   }
+
+  // 섹션이 선택된 경우 — [타이틀 props] → [콘텐츠 슬롯 패널] 순서로 렌더
+  const sectionHasSlots = SECTION_PRESETS[section.preset].slots.length > 0;
   return (
-    <div className="space-y-3">
-      <div className="text-[11px] uppercase tracking-wider text-builder-muted">
-        {component
-          ? COMPONENT_PRESETS[component.preset].label
-          : SECTION_PRESETS[section.preset].label}{" "}
-        Props
-      </div>
-      {keys.map((key) => (
-        <PropField
-          key={key}
-          field={key}
-          spec={spec[key] ?? {}}
-          value={target.props[key]}
-          onChange={(v) => {
-            if (component) {
-              updateComponentProp(section.id, component.id, key, v);
-            } else {
-              updateSectionProp(section.id, key, v);
-            }
-          }}
-        />
-      ))}
+    <div className="space-y-6">
+      {keys.length > 0 && (
+        <div className="space-y-3">
+          <div className="text-[11px] uppercase tracking-wider text-builder-muted">
+            {SECTION_PRESETS[section.preset].label} Props
+          </div>
+          {keys.map((key) => (
+            <PropField
+              key={key}
+              field={key}
+              spec={spec[key] ?? {}}
+              value={section.props[key]}
+              onChange={(v) => updateSectionProp(section.id, key, v)}
+            />
+          ))}
+        </div>
+      )}
+
+      {sectionHasSlots && (
+        <div className="space-y-3 border-t border-builder-border pt-5">
+          <div className="text-[11px] uppercase tracking-wider text-builder-muted">
+            콘텐츠 슬롯
+          </div>
+          <SectionSlotsPanel />
+        </div>
+      )}
+
+      {keys.length === 0 && !sectionHasSlots && (
+        <p className="text-[12px] text-builder-muted">
+          이 프리셋은 편집할 항목이 없습니다.
+        </p>
+      )}
     </div>
   );
 }
@@ -290,14 +326,14 @@ function CarouselSettingsEditor({
   );
 }
 
-function RowSettingsEditor({
+function ListSettingsEditor({
   settings,
   onChange,
 }: {
   sectionId: string;
   componentId: string;
-  settings: Extract<CardProps["layout"], { type: "row" }>["settings"];
-  onChange: (s: Extract<CardProps["layout"], { type: "row" }>["settings"]) => void;
+  settings: Extract<CardProps["layout"], { type: "list" }>["settings"];
+  onChange: (s: Extract<CardProps["layout"], { type: "list" }>["settings"]) => void;
 }) {
   return (
     <div className="space-y-2">
@@ -310,7 +346,7 @@ function RowSettingsEditor({
           }
           className="rounded-ods-4 border border-builder-border bg-builder-bg px-2 py-1 text-[11px]"
         >
-          {["start", "center", "end", "between", "around"].map((a) => (
+          {["start", "center", "end"].map((a) => (
             <option key={a} value={a}>
               {a}
             </option>
@@ -324,14 +360,13 @@ function RowSettingsEditor({
         min={0}
         max={64}
       />
-      <label className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={settings.wrap}
-          onChange={(e) => onChange({ ...settings, wrap: e.target.checked })}
-        />
-        <span className="text-[12px] text-builder-text">Wrap</span>
-      </label>
+      <NumberField
+        label="Inset (px)"
+        value={settings.inset ?? 0}
+        onChange={(v) => onChange({ ...settings, inset: v })}
+        min={0}
+        max={64}
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@
  * `@bucketplace/assets/image` 대체 구현.
  * 사내 패키지가 설치되면 tsconfig paths 에서 이 파일 대신 패키지를 가리키면 된다.
  *
- * StillImage 프리뷰: design-assets CDN(`asset.ohousecdn.com/static/…`) 우선,
+ * StillImage 프리뷰: design-assets CDN(`…/static/AssetBellLarge/image_480.webp` 등) 우선,
  * webp 실패 시 `image_480.png`, 그다음 picsum (`preview-asset-url`).
  */
 

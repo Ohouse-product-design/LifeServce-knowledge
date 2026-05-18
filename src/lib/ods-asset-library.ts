@@ -15,7 +15,8 @@
  * 로컬 미러: `src/catalog/ods-assets.json`, `src/catalog/ods-icons.json`.
  * AssetEmbedModal 에서 이 라이브러리를 검색·선택하면 AssetRef 의 `assetId` 에
  * ODS 컴포넌트 이름(e.g. "AssetBellLargeStillImage") 이 저장되고,
- * 프리뷰는 `OdsAssetRenderer` + `preview-asset-url` 이 카탈로그를 참조해 렌더한다.
+ * 프리뷰는 `OdsAssetRenderer` + `preview-asset-url` + `ods-asset-paths.json`(clone 생성)이
+ * design-assets manifest(prod) CDN 경로로 렌더한다.
  */
 
 import assetsCatalog from "@/catalog/ods-assets.json";

@@ -11,7 +11,11 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "clone:ods": "node scripts/clone-design-assets.mjs",
+    "generate:ods-paths": "node scripts/generate-ods-asset-paths.mjs",
+    "sync:ods": "node scripts/sync-ods-static.mjs",
+    "setup:local-ods": "node scripts/setup-local-ods.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",

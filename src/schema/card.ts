@@ -8,7 +8,7 @@
  *
  *   Section
  *    └─ Card  (preset="card")
- *        ├─ layout      : "grid" | "carousel" | "row"
+ *        ├─ layout      : "grid" | "carousel" | "list"
  *        ├─ layoutSettings  (레이아웃별 세부 옵션)
  *        └─ cells[]     : CardCell[]
  *             └─ slots  : { media?, tag?, title?, body?, meta?, rating?, ... }
@@ -22,7 +22,7 @@ import type { AssetRef } from "./doc";
 // Layout 타입
 // ---------------------------------------------------------------------------
 
-export type CardLayout = "grid" | "carousel" | "row";
+export type CardLayout = "grid" | "carousel" | "list";
 
 /** grid — 화면을 n:n 분할 */
 export interface GridLayoutSettings {
@@ -34,9 +34,9 @@ export interface GridLayoutSettings {
   minCellHeight?: number;
 }
 
-/** carousel — 고정 너비 카드 + 좌우 스크롤 */
+/** carousel — 고정 너비 카드 + 좌우 스크롤 (fixed-width) */
 export interface CarouselLayoutSettings {
-  /** 카드 한 장의 너비 (디바이스별) */
+  /** 카드 한 장의 너비 (디바이스별, 고정값) */
   cardWidth: { mobile: number; tablet: number; desktop: number };
   /** 카드 간 간격 (px) */
   gap: number;
@@ -56,26 +56,20 @@ export interface CarouselLayoutSettings {
   showDots?: boolean;
 }
 
-/** row — 한 줄 정렬 */
-export interface RowLayoutSettings {
-  /** 정렬 방식 */
-  align: "start" | "center" | "end" | "between" | "around";
-  /** 셀 간 간격 (px) */
+/** list — 수직 스택 (한 줄에 카드 1개, 위→아래 읽기 순) */
+export interface ListLayoutSettings {
+  /** 셀 간 수직 간격 (px) */
   gap: number;
-  /** 폭 초과 시 줄바꿈 여부 */
-  wrap: boolean;
-  /** 디바이스별 정렬을 다르게 가져갈 경우 */
-  responsive?: {
-    mobile?: { align: RowLayoutSettings["align"]; wrap: boolean };
-    tablet?: { align: RowLayoutSettings["align"]; wrap: boolean };
-    desktop?: { align: RowLayoutSettings["align"]; wrap: boolean };
-  };
+  /** 행 정렬 (좌/중앙/우) */
+  align: "start" | "center" | "end";
+  /** 카드 좌우 패딩 (px) */
+  inset?: number;
 }
 
 export type CardLayoutSettings =
   | { type: "grid"; settings: GridLayoutSettings }
   | { type: "carousel"; settings: CarouselLayoutSettings }
-  | { type: "row"; settings: RowLayoutSettings };
+  | { type: "list"; settings: ListLayoutSettings };
 
 // ---------------------------------------------------------------------------
 // Cell / Slot
@@ -105,12 +99,21 @@ export type CardSlotContent =
   | { kind: "meta"; items: string[] }
   | { kind: "cta"; label: string; url: string };
 
+export type CardCellTheme = "grey" | "blue" | "green";
+
 export interface CardCell {
   id: string;
   /** 슬롯별 콘텐츠. 키는 CardSlotName. 비어있는 슬롯은 키 자체가 없거나 undefined. */
   slots: Partial<Record<CardSlotName, CardSlotContent>>;
   /** 셀 단의 토큰 바인딩 (배경/보더 등) */
   tokens?: { propPath: string; tokenRef: string }[];
+  /**
+   * 변형별 추가 속성 — 현재는 tablecard 의 color theme 만 사용.
+   *   grey  : 비교 대상 (default 평범한 회색 카드)
+   *   blue  : 강조 카드 (1px 블루 보더, 흰 타이틀)
+   *   green : 최강조 카드 (2px 그린 보더 + 그린 글로우 섀도우)
+   */
+  theme?: CardCellTheme;
 }
 
 // ---------------------------------------------------------------------------
@@ -145,11 +148,29 @@ export type CardSlotSpecMap = Partial<Record<CardSlotName, CardSlotSpec>>;
 // ---------------------------------------------------------------------------
 
 /**
- * Card 자체는 단일 컴포넌트이지만, 섹션이 "이런 슬롯 조합으로 쓰겠다" 고 선언할 수 있다.
- * 어드민에서 "USP 카드 추가" / "리뷰 카드 추가" 처럼 빠르게 셀을 만들 때
- * 어떤 슬롯을 활성화/비활성화할지 결정하는 가이드.
+ * 어드민/Storybook 의 카드 변형 (cell usage).
+ * CONVENTIONS §7 의 slot-item.* 와 1:1 매핑:
+ *   imgcard   → slot-item.card           (이미지+텍스트 기본)
+ *   reviewcard→ slot-item.review-card    (인용·후기)
+ *   listcard  → slot-item.list-card      (아이콘·텍스트·링크 리스트)
+ *   stepcard  → slot-item.progress-card  (번호·타이틀·설명)
+ *   tablecard → slot-item.table-card     (테이블·요약·CTA)
+ *
+ * 각 변형은 자신이 허용하는 layout 과 default layout 을 선언한다 (§7 + §8).
  */
-export type CardUsagePresetId = "usp" | "review" | "step" | "service" | "custom";
+export type CardUsagePresetId =
+  | "imgcard"
+  | "reviewcard"
+  | "listcard"
+  | "tablecard"
+  | "faqcard";
+
+/**
+ * imgcard 의 서브 변형. usage === "imgcard" 일 때만 의미 있음.
+ *   bgfullimg     : 풀-블리드 배경 이미지 + dim + 오버레이 텍스트 (구 imgcard)
+ *   leading-asset : 상단 아이콘/일러스트 + 좌측 정렬 텍스트 (구 stepcard)
+ */
+export type ImgcardType = "bgfullimg" | "leading-asset";
 
 export interface CardUsagePreset {
   id: CardUsagePresetId;
@@ -159,17 +180,28 @@ export interface CardUsagePreset {
   slotSpec: CardSlotSpecMap;
   /** 셀을 새로 만들 때 사용할 기본 콘텐츠 (placeholder) */
   defaultCell: () => Partial<Record<CardSlotName, CardSlotContent>>;
+  /** 이 변형이 허용하는 layout 들 (인스펙터 토글에 노출되는 항목) */
+  allowedLayouts: CardLayout[];
+  /** 새로 추가될 때의 default layout */
+  defaultLayout: CardLayout;
+  /**
+   * 카드가 시각적으로 깨지지 않는 최소 너비 (px).
+   * CONVENTIONS §11: 슬롯 컨테이너의 per-card 폭이 이 값 미만이 되면
+   * grid → carousel → list 순으로 자동 폴백.
+   */
+  minWidth: number;
 }
 
 export const CARD_USAGE_PRESETS: Record<CardUsagePresetId, CardUsagePreset> = {
-  usp: {
-    id: "usp",
-    label: "콘텐츠 카드",
-    description: "키메시지와 이미지로 구성된 콘텐츠 카드",
+  imgcard: {
+    id: "imgcard",
+    label: "Image Card",
+    description: "이미지 + 텍스트 카드. cardType=bgfullimg(풀 배경) / leading-asset(상단 에셋) 토글로 두 레이아웃 지원",
     slotSpec: {
       tag: { maxChar: 12, maxLine: 1, allowedKinds: ["text"], label: "태그" },
+      stepNumber: { maxChar: 4, maxLine: 1, allowedKinds: ["text"], label: "스텝 번호 (leading-asset 전용)" },
       title: { maxChar: 20, maxLine: 2, required: true, allowedKinds: ["text"], label: "헤드라인" },
-      body: { maxChar: 32, maxLine: 2, allowedKinds: ["text"], label: "설명" },
+      body: { maxChar: 40, maxLine: 2, allowedKinds: ["text"], label: "설명" },
       media: { allowedKinds: ["asset"], label: "이미지" },
     },
     defaultCell: () => ({
@@ -177,77 +209,156 @@ export const CARD_USAGE_PRESETS: Record<CardUsagePresetId, CardUsagePreset> = {
       title: { kind: "text", text: "" },
       body: { kind: "text", text: "" },
     }),
+    allowedLayouts: ["grid", "carousel", "list"],
+    defaultLayout: "grid",
+    minWidth: 240,
   },
 
-  review: {
-    id: "review",
-    label: "리뷰 카드",
-    description: "리뷰 항목으로 구성된 카드",
+  reviewcard: {
+    id: "reviewcard",
+    label: "Review Card",
+    description: "별점·헤드라인·메타·본문으로 구성된 후기 카드 (후기 리스트 섹션 / seed.ts sec-review 캐노니컬)",
     slotSpec: {
-      rating: { allowedKinds: ["rating"], label: "별점" },
-      title: { maxChar: 24, maxLine: 2, required: true, allowedKinds: ["text"], label: "제목" },
-      body: { maxChar: 120, maxLine: 5, required: true, allowedKinds: ["text"], label: "본문" },
-      meta: { allowedKinds: ["meta"], label: "닉네임/성별/지역" },
+      rating: { required: true, allowedKinds: ["rating"], label: "별점 (0–5)" },
+      title: { maxChar: 40, maxLine: 2, required: true, allowedKinds: ["text"], label: "헤드라인 (\\n 으로 줄바꿈)" },
+      meta: { required: true, allowedKinds: ["meta"], label: "메타 + 작성자 (마지막 항목 = 작성자, '|' 로 구분)" },
+      body: { maxChar: 180, maxLine: 3, required: true, allowedKinds: ["text"], label: "본문 (3줄 ellipsis)" },
     },
+    // 후기 리스트 섹션 디폴트 셀: rate / title / userid / meta1 / meta2 / reviewtext
     defaultCell: () => ({
       rating: { kind: "rating", value: 5, max: 5 },
-      title: { kind: "text", text: "" },
-      body: { kind: "text", text: "" },
-      meta: { kind: "meta", items: [] },
+      title: { kind: "text", text: "후기 헤드라인" },
+      // meta.items = [userid, meta1, meta2]
+      meta: { kind: "meta", items: ["작성자", "메타1", "메타2"] },
+      body: { kind: "text", text: "후기 본문 내용을 입력하세요." },
     }),
+    allowedLayouts: ["grid", "list", "carousel"],
+    defaultLayout: "grid",
+    minWidth: 254,
   },
 
-  step: {
-    id: "step",
-    label: "스텝",
-    description: "스텝 번호 + 타이틀 + 설명 + 이미지",
-    slotSpec: {
-      stepNumber: { maxChar: 4, maxLine: 1, allowedKinds: ["text"], label: "스텝 번호" },
-      title: { maxChar: 12, maxLine: 1, required: true, allowedKinds: ["text"], label: "타이틀" },
-      body: { maxChar: 40, maxLine: 2, allowedKinds: ["text"], label: "설명" },
-      media: { allowedKinds: ["asset"], label: "이미지" },
-    },
-    defaultCell: () => ({
-      stepNumber: { kind: "text", text: "01" },
-      title: { kind: "text", text: "" },
-      body: { kind: "text", text: "" },
-    }),
-  },
-
-  service: {
-    id: "service",
-    label: "서비스 카드",
-    description: "아이콘 + 짧은 타이틀 + 짧은 설명 + 링크",
+  listcard: {
+    id: "listcard",
+    label: "List Card",
+    description: "아이콘·타이틀·설명·링크로 구성된 리스트형 카드 (slot-item.list-card)",
     slotSpec: {
       icon: { required: true, allowedKinds: ["asset"], label: "아이콘" },
-      title: { maxChar: 8, maxLine: 1, required: true, allowedKinds: ["text"], label: "타이틀" },
-      body: { maxChar: 20, maxLine: 1, allowedKinds: ["text"], label: "설명" },
+      title: { maxChar: 20, maxLine: 1, required: true, allowedKinds: ["text"], label: "타이틀" },
+      body: { maxChar: 40, maxLine: 2, allowedKinds: ["text"], label: "설명" },
       cta: { allowedKinds: ["cta"], label: "링크" },
     },
     defaultCell: () => ({
       title: { kind: "text", text: "" },
       body: { kind: "text", text: "" },
     }),
+    allowedLayouts: ["list", "grid"],
+    defaultLayout: "list",
+    minWidth: 320,
   },
 
-  custom: {
-    id: "custom",
-    label: "커스텀",
-    description: "원하는 슬롯을 자유롭게 활성화",
+  tablecard: {
+    id: "tablecard",
+    label: "Table Card",
+    description: "rowtitle + N개의 row (4~6) 로 구성된 비교/요약 테이블 카드 (Figma 2:166)",
     slotSpec: {
-      media: { allowedKinds: ["asset"], label: "이미지" },
-      icon: { allowedKinds: ["asset"], label: "아이콘" },
-      tag: { maxChar: 16, maxLine: 1, allowedKinds: ["text"], label: "태그" },
-      stepNumber: { maxChar: 6, maxLine: 1, allowedKinds: ["text"], label: "스텝 번호" },
-      title: { maxChar: 30, maxLine: 2, allowedKinds: ["text"], label: "제목" },
-      body: { maxChar: 200, maxLine: 6, allowedKinds: ["text"], label: "본문" },
-      meta: { allowedKinds: ["meta"], label: "메타" },
-      rating: { allowedKinds: ["rating"], label: "별점" },
-      cta: { allowedKinds: ["cta"], label: "CTA" },
+      title: { maxChar: 24, maxLine: 1, required: true, allowedKinds: ["text"], label: "Row Title" },
+      meta: { required: true, allowedKinds: ["meta"], label: "Rows (한 행 = meta items 한 개)" },
     },
-    defaultCell: () => ({}),
+    // 디폴트: rowtitle + 4개 row (min)
+    defaultCell: () => ({
+      title: { kind: "text", text: "카드 제목" },
+      meta: { kind: "meta", items: ["Row 1", "Row 2", "Row 3", "Row 4"] },
+    }),
+    allowedLayouts: ["grid", "list"],
+    defaultLayout: "grid",
+    minWidth: 199,
+  },
+
+  faqcard: {
+    id: "faqcard",
+    label: "FAQ Card",
+    description: "질문(title) + 답변(body)의 accordion 카드 (slot-item.faq-card)",
+    slotSpec: {
+      title: { maxChar: 80, maxLine: 2, required: true, allowedKinds: ["text"], label: "질문" },
+      body: { maxChar: 400, maxLine: 10, required: true, allowedKinds: ["text"], label: "답변" },
+    },
+    defaultCell: () => ({
+      title: { kind: "text", text: "자주 묻는 질문" },
+      body: { kind: "text", text: "답변을 입력하세요. 여러 줄도 가능합니다." },
+    }),
+    allowedLayouts: ["list"],
+    defaultLayout: "list",
+    minWidth: 320,
   },
 };
+
+/** tablecard 의 row 개수 제한 (CellSlotEditor 에서 강제) */
+export const TABLECARD_ROW_LIMITS = { min: 4, max: 6 } as const;
+
+/** faqcard 의 cell 개수 제한 (Cells 리스트 add/remove 버튼에서 강제) */
+export const FAQCARD_CELL_LIMITS = { min: 4, max: 10 } as const;
+
+/**
+ * 섹션 prest 가 처음 추가될 때 카드 슬롯에 자동 주입할 콘텐츠.
+ * `addSection` 이 빈 슬롯 대신 의미 있는 자리표시자 카드를 생성하도록 한다.
+ *
+ *   { usage, cardType?, cells } — cells 는 buildDefaultCells 로 생성된 placeholder
+ */
+export type SectionAutoContent = {
+  usage: CardUsagePresetId;
+  cardType?: ImgcardType;
+  /** 디폴트 cell 개수 */
+  cellCount: number;
+  /** 첫 cell 들에 들어갈 placeholder 콘텐츠 — 미지정 시 defaultCell 만 반복 */
+  seedCells?: Array<Partial<Record<CardSlotName, CardSlotContent>>>;
+};
+
+export const SECTION_AUTO_CONTENT: Record<string, SectionAutoContent> = {
+  usp: { usage: "imgcard", cardType: "bgfullimg", cellCount: 4 },
+  review: { usage: "reviewcard", cellCount: 4 },
+  process: { usage: "imgcard", cardType: "leading-asset", cellCount: 4 },
+  "cross-sell": { usage: "listcard", cellCount: 3 },
+  table: { usage: "tablecard", cellCount: 2 },
+  faq: {
+    usage: "faqcard",
+    cellCount: 4,
+    seedCells: [
+      {
+        title: { kind: "text", text: "이사 견적은 어떻게 받나요?" },
+        body: { kind: "text", text: "이사 일정과 물량을 입력하시면 검증된 업체의 견적을 한 번에 비교해서 받아보실 수 있어요. 카카오톡 또는 전화로 추가 상담도 가능합니다." },
+      },
+      {
+        title: { kind: "text", text: "파손 보상 범위는 어떻게 되나요?" },
+        body: { kind: "text", text: "오늘의집 책임보장 적용 시 파손·분실에 대해 최대 1천만원까지 보상해 드립니다." },
+      },
+      {
+        title: { kind: "text", text: "예약 후 일정 변경이 가능한가요?" },
+        body: { kind: "text", text: "이사 예정일 3일 전까지는 무료로 일정 변경이 가능합니다. 그 이후에는 업체 정책에 따라 변경 가능 여부가 달라집니다." },
+      },
+      {
+        title: { kind: "text", text: "추가 비용이 발생할 수 있나요?" },
+        body: { kind: "text", text: "현장에서 예상치 못한 추가 작업(엘리베이터 미사용, 가구 분해/조립 등)이 필요한 경우 별도 비용이 발생할 수 있어요. 견적 단계에서 미리 확인하세요." },
+      },
+    ],
+  },
+};
+
+/**
+ * 섹션 추가 시 카드 슬롯의 cells 를 생성. SectionAutoContent.seedCells 가 있으면 그것을, 없으면 defaultCell() 을 반복.
+ */
+export function buildAutoCellsForSection(
+  presetId: string,
+  cardComponentId: string
+): { usage: CardUsagePresetId; cardType?: ImgcardType; cells: CardCell[] } | null {
+  const auto = SECTION_AUTO_CONTENT[presetId];
+  if (!auto) return null;
+  const preset = CARD_USAGE_PRESETS[auto.usage];
+  const cells: CardCell[] = Array.from({ length: auto.cellCount }).map((_, i) => ({
+    id: `${cardComponentId}-cell-${i}`,
+    slots: auto.seedCells?.[i] ?? preset.defaultCell(),
+  }));
+  return { usage: auto.usage, cardType: auto.cardType, cells };
+}
 
 // ---------------------------------------------------------------------------
 // Card 인스턴스 형태 (ComponentInstance.props 의 shape)
@@ -258,12 +369,17 @@ export const CARD_USAGE_PRESETS: Record<CardUsagePresetId, CardUsagePreset> = {
  * ComponentInstance.props 가 아래 형태를 갖는다 (CardProps 로 캐스팅).
  */
 export interface CardProps {
-  /** 어떤 사용 패턴인지 (USP/Review/Step/Service/Custom) */
+  /** 어떤 사용 패턴인지 (imgcard/reviewcard/listcard/tablecard) */
   usage: CardUsagePresetId;
   /** 레이아웃 */
   layout: CardLayoutSettings;
   /** 셀 목록 */
   cells: CardCell[];
+  /**
+   * imgcard 의 서브 변형 (bgfullimg | leading-asset). 다른 usage 에서는 무시됨.
+   * 디폴트는 "bgfullimg".
+   */
+  cardType?: ImgcardType;
 }
 
 // ---------------------------------------------------------------------------
@@ -293,10 +409,10 @@ export function defaultLayoutSettings(layout: CardLayout): CardLayoutSettings {
           showDots: false,
         },
       };
-    case "row":
+    case "list":
       return {
-        type: "row",
-        settings: { align: "start", gap: 16, wrap: false },
+        type: "list",
+        settings: { gap: 16, align: "start" },
       };
   }
 }

@@ -33,11 +33,13 @@ function buildCard(args: {
   usage: CardUsagePresetId;
   layout: CardLayoutSettings;
   cells: CardCell[];
+  cardType?: import("@/schema/card").ImgcardType;
 }): ComponentInstance {
   const props: CardProps = {
     usage: args.usage,
     layout: args.layout,
     cells: args.cells,
+    cardType: args.cardType,
   };
   return {
     id: args.id,
@@ -105,7 +107,7 @@ const uspCells: CardCell[] = [
 
 const uspCard = buildCard({
   id: "card-usp",
-  usage: "usp",
+  usage: "imgcard",
   layout: {
     type: "grid",
     settings: { columns: { mobile: 1, tablet: 2, desktop: 4 }, gap: 16 },
@@ -138,7 +140,7 @@ const coverageCells: CardCell[] = [
 
 const coverageCard = buildCard({
   id: "card-coverage",
-  usage: "usp",
+  usage: "imgcard",
   layout: {
     type: "grid",
     settings: { columns: { mobile: 1, tablet: 2, desktop: 2 }, gap: 16 },
@@ -200,7 +202,7 @@ const reviewCells: CardCell[] = [
 
 const reviewCard = buildCard({
   id: "card-review",
-  usage: "review",
+  usage: "reviewcard",
   layout: {
     type: "carousel",
     settings: {
@@ -264,7 +266,8 @@ const stepCells: CardCell[] = [
 
 const stepCard = buildCard({
   id: "card-process",
-  usage: "step",
+  usage: "imgcard",
+  cardType: "leading-asset",
   layout: {
     type: "grid",
     settings: { columns: { mobile: 1, tablet: 2, desktop: 4 }, gap: 16 },
@@ -308,10 +311,10 @@ const serviceCells: CardCell[] = [
 
 const serviceCard = buildCard({
   id: "card-crosssell",
-  usage: "service",
+  usage: "listcard",
   layout: {
-    type: "row",
-    settings: { align: "start", gap: 16, wrap: true },
+    type: "list",
+    settings: { gap: 16, align: "start" },
   },
   cells: serviceCells,
 });
@@ -358,27 +361,56 @@ const sections: Section[] = [
   {
     id: "sec-table",
     preset: "table",
-    name: "비교 테이블 — 타사 vs 오늘의집",
+    name: "비교 카드 — 타사 vs 오늘의집",
     locked: false,
     props: {
       sectionSubtitle: "꼼꼼히 비교해보세요",
       sectionTitle: "오늘의집 이사가\n다른 이유",
-      colHeaders: ["타사", "오늘의집", "책임보장"],
     },
     slots: {
-      rows: [
-        {
-          id: uid("row", 1),
-          preset: "table-row",
-          props: { label: "견적 비교", colA: "직접 전화", colB: "한 번에", colC: "한 번에" },
-          assets: [],
-        },
-        {
-          id: uid("row", 2),
-          preset: "table-row",
-          props: { label: "파손 보장", colA: "없음", colB: "최대 100만원", colC: "최대 1억원" },
-          assets: [],
-        },
+      content: [
+        buildCard({
+          id: "card-table",
+          usage: "tablecard",
+          // 2row 변형: grey + blue 비교
+          layout: { type: "grid", settings: { columns: { mobile: 1, tablet: 2, desktop: 2 }, gap: 2 } },
+          cells: [
+            {
+              id: uid("tcrd", 1),
+              theme: "grey",
+              slots: {
+                title: { kind: "text", text: "타사 서비스" },
+                meta: {
+                  kind: "meta",
+                  items: [
+                    "단순 업체 연결",
+                    "업체마다 다른 견적",
+                    "사고 발생 시\n직접 업체와 협의",
+                    "현장 추가금\n발생 가능",
+                    "업체별로\n다른 보상 범위",
+                  ],
+                },
+              },
+            },
+            {
+              id: uid("tcrd", 2),
+              theme: "blue",
+              slots: {
+                title: { kind: "text", text: "오늘의집 이사" },
+                meta: {
+                  kind: "meta",
+                  items: [
+                    "파트너사 관리",
+                    "평균 견적 정보 제공",
+                    "오늘의집 중재",
+                    "계약 외 청구 시\n최대 200% 보상",
+                    "파손·분실 사고 시\n최대 200만원 보상",
+                  ],
+                },
+              },
+            },
+          ],
+        }),
       ],
     },
     assets: [],
@@ -386,7 +418,7 @@ const sections: Section[] = [
   },
   {
     id: "sec-coverage",
-    preset: "coverage",
+    preset: "usp",
     name: "책임보장 파트너",
     locked: false,
     props: {

@@ -8,3 +8,5 @@ out
 
 *storybook.log
 storybook-static
+vendor/
+public/ods-static/

@@ -1,19 +1,24 @@
 /**
- * 컴포넌트 프리셋 카탈로그 (v2 — Card 통합 리팩토링 후).
+ * 컴포넌트 프리셋 카탈로그 (v3 — Section 구성 원칙 적용).
  *
- * 변경 요약:
- * - 기존 4종(UspCard / ReviewCard / StepCard / ServiceCard) 을 단일 "card" 프리셋으로 통합.
- *   → card 는 layout(grid/carousel/row) + cells(slot 시스템) 구조.
- *   → 사용 패턴(usp/review/step/service/custom) 은 src/schema/card.ts 의 CARD_USAGE_PRESETS 참조.
- * - table-row / form-field / tab / badge 는 카드와 의미가 달라 별도 프리셋으로 유지.
+ * 섹션 구성 원칙 (CONVENTIONS §12):
+ *   - hero / cta / footer 를 제외한 모든 섹션은 **타이틀(uiSpec) + 카드(slot)** 의
+ *     조합으로만 구성되어야 한다.
+ *   - 따라서 body 섹션의 slot 은 항상 `["card"]` 만 허용.
+ *   - `form-field` 는 cta-form 섹션 전용 (cta 카테고리, 예외).
+ *
+ * 변경:
+ *   - `table-row`, `tab`, `badge` 는 v2 잔재로, 어떤 섹션에서도 더 이상 사용되지 않음.
+ *   - 향후 한 릴리스 사이클 후 완전 제거 예정. 현재는 union 유지 + DEPRECATED 표시.
  */
 
 import type { UISpec } from "./ui-spec";
 
 export type ComponentPresetId =
-  | "card" // ★ 통합 카드 — layout + cells
+  | "card"        // ★ 통합 카드 — layout + cells
+  | "form-field"  // cta-form 섹션 전용
+  // DEPRECATED — 어떤 섹션도 더 이상 참조하지 않음. 제거 대기.
   | "table-row"
-  | "form-field"
   | "tab"
   | "badge";
 
@@ -40,14 +45,13 @@ export const COMPONENT_PRESETS: Record<ComponentPresetId, ComponentPreset> = {
       usage: {
         inputType: "enum",
         enumOptions: [
-          { value: "usp", label: "USP 카드" },
-          { value: "review", label: "리뷰 카드" },
-          { value: "step", label: "프로세스 스텝" },
-          { value: "service", label: "서비스 카드" },
-          { value: "custom", label: "커스텀" },
+          { value: "imgcard", label: "Image Card" },
+          { value: "reviewcard", label: "Review Card" },
+          { value: "listcard", label: "List Card" },
+          { value: "tablecard", label: "Table Card" },
         ],
         required: true,
-        help: "셀의 슬롯 활성화 + 제약을 결정합니다",
+        help: "셀의 슬롯 활성화 + 제약을 결정합니다. imgcard 는 cardType(bgfullimg/leading-asset) 으로 추가 분기.",
       },
     },
     assetSlots: [],

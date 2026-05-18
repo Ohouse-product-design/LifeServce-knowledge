@@ -1,0 +1,1717 @@
+{
+  "AssetArtSettingDeliveryHorizontalStillImage": {
+    "kind": "img",
+    "folder": "AssetArtSettingDeliveryHorizontal",
+    "file": "image_480.png"
+  },
+  "AssetAwardStarLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetAwardStarLarge",
+    "file": "image_480.webp"
+  },
+  "AssetBannerMailO2OOhouseInteriorStillImage": {
+    "kind": "img",
+    "folder": "AssetBannerMailO2OOhouseInterior",
+    "file": "image_480.png"
+  },
+  "AssetBannerMailO2OOhouseStandardStillImage": {
+    "kind": "img",
+    "folder": "AssetBannerMailO2OOhouseStandard",
+    "file": "image_480.png"
+  },
+  "AssetBellLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetBellLarge",
+    "file": "image_480.webp"
+  },
+  "AssetBenefitCollabMarketStillImage": {
+    "kind": "img",
+    "folder": "AssetBenefitCollabMarket",
+    "file": "image_480.webp"
+  },
+  "AssetBenefitPointRewardStillImage": {
+    "kind": "img",
+    "folder": "AssetBenefitPointReward",
+    "file": "image_480.webp"
+  },
+  "AssetBoltTruckLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetBoltTruckLarge",
+    "file": "image_480.webp"
+  },
+  "AssetBoltTruckLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetBoltTruckLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetBoltTruckLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetBoltTruckLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetCameraLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetCameraLarge",
+    "file": "image_480.webp"
+  },
+  "AssetCameraLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetCameraLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetCameraLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetCameraLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetCartLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetCartLarge",
+    "file": "image_480.webp"
+  },
+  "AssetCartLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetCartLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetClockLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetClockLarge",
+    "file": "image_480.webp"
+  },
+  "AssetClockLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetClockLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapHeadsetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapHeadsetLarge",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapHeadsetLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapHeadsetLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapHeadsetLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapHeadsetLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapLarge",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingCapLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingCapLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingSafetyHelmetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingSafetyHelmetLarge",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingSafetyHelmetLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingSafetyHelmetLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetFaceSmilingSafetyHelmetLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetFaceSmilingSafetyHelmetLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetFaviconOhouseSymbolStillImage": {
+    "kind": "img",
+    "folder": "AssetFaviconOhouseSymbol",
+    "file": "favicon-ohouse-symbol.ico"
+  },
+  "AssetFaviconOhouseSymbolOnSquareStillImage": {
+    "kind": "img",
+    "folder": "AssetFaviconOhouseSymbolOnSquare",
+    "file": "favicon-ohouse-symbol-on-square.ico"
+  },
+  "AssetGiftLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetGiftLarge",
+    "file": "image_480.webp"
+  },
+  "AssetGiftLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetGiftLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetGiftLargeView3StillImage": {
+    "kind": "img",
+    "folder": "AssetGiftLargeView3",
+    "file": "image_480.webp"
+  },
+  "AssetGlossyIdCardLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetGlossyIdCardLarge",
+    "file": "image_480.png"
+  },
+  "AssetGlossyIdCardLargeShadowStillImage": {
+    "kind": "img",
+    "folder": "AssetGlossyIdCardLargeShadow",
+    "file": "image_480.png"
+  },
+  "AssetGroceryShoppingBagLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetGroceryShoppingBagLarge",
+    "file": "image_480.webp"
+  },
+  "AssetGroceryShoppingBagLargeView2StillImage": {
+    "kind": "img",
+    "folder": "AssetGroceryShoppingBagLargeView2",
+    "file": "image_480.webp"
+  },
+  "AssetHouseWithDrillLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetHouseWithDrillLarge",
+    "file": "image_480.png"
+  },
+  "AssetIconBookmarkFilledBrandStillImage": {
+    "kind": "img",
+    "folder": "AssetIconBookmarkFilledBrand",
+    "file": "image_480.webp"
+  },
+  "AssetIconBookmarkFilledWeakStillImage": {
+    "kind": "img",
+    "folder": "AssetIconBookmarkFilledWeak",
+    "file": "image_480.webp"
+  },
+  "AssetLineBathroomTapRepairRequestStillImage": {
+    "kind": "img",
+    "folder": "AssetLineBathroomTapRepairRequest",
+    "file": "image_480.webp"
+  },
+  "AssetLineOhouseAppAndMobileStillImage": {
+    "kind": "img",
+    "folder": "AssetLineOhouseAppAndMobile",
+    "file": "image_120.webp"
+  },
+  "AssetLuckyCheckLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetLuckyCheckLarge",
+    "file": "image_480.webp"
+  },
+  "AssetMotionBellLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionBellLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionBoltTruckLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionBoltTruckLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionCameraLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionCameraLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionCartLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionCartLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionClockLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionClockLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionFaceSmilingCapHeadsetLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionFaceSmilingCapHeadsetLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionFaceSmilingCapLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionFaceSmilingCapLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionFaceSmilingSafetyHelmetLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionFaceSmilingSafetyHelmetLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionGetPointPCircleAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionGetPointPCircle",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionGiftLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionGiftLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionGroceryShoppingBagLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionGroceryShoppingBagLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionLuckyCheckLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionLuckyCheckLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionMovingBoxesOnDollyLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionMovingBoxesOnDollyLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionOsenseLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionOsenseLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionPCircleLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionPCircleLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionPackageSurpriseIconsAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionPackageSurpriseIcons",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionSpinnerAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionSpinner",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionWonSignCircleLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetMotionWonSignCircleLarge",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMovingBoxesOnDollyLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetMovingBoxesOnDollyLarge",
+    "file": "image_480.webp"
+  },
+  "AssetOhouseHorizontalStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseHorizontal",
+    "file": "ohouse-horizontal.svg"
+  },
+  "AssetOhouseHorizontalEnStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseHorizontalEn",
+    "file": "ohouse-horizontal-en.svg"
+  },
+  "AssetOhouseHorizontalGrayAlphaStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseHorizontalGrayAlpha",
+    "file": "ohouse-horizontal-gray-alpha.svg"
+  },
+  "AssetOhouseStoreManagementCenterHorizontalStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseStoreManagementCenterHorizontal",
+    "file": "ohouse-store-management-center-horizontal.svg"
+  },
+  "AssetOhouseSymbolStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseSymbol",
+    "file": "ohouse-symbol.svg"
+  },
+  "AssetOhouseSymbol3dAltStillImage": {
+    "kind": "img",
+    "folder": "AssetOhouseSymbol3dAlt",
+    "file": "image_480.png"
+  },
+  "AssetOpenGraphO2OHomeStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2OHome",
+    "file": "open-graph-o2o-home.jpg"
+  },
+  "AssetOpenGraphO2OMovingStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2OMoving",
+    "file": "open-graph-o2o-moving.png"
+  },
+  "AssetOpenGraphO2ORemodelingGoodsRankingStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2ORemodelingGoodsRanking",
+    "file": "open-graph-o2o-remodeling-goods-ranking.jpg"
+  },
+  "AssetOpenGraphO2ORemodelingGoodsStoreStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2ORemodelingGoodsStore",
+    "file": "open-graph-o2o-remodeling-goods-store.png"
+  },
+  "AssetOpenGraphO2OReportCautionStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2OReportCaution",
+    "file": "open-graph-o2o-report-caution.png"
+  },
+  "AssetOpenGraphO2OReportQuestionMarkStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphO2OReportQuestionMark",
+    "file": "open-graph-o2o-report-question-mark.png"
+  },
+  "AssetOpenGraphOhouseCareersStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphOhouseCareers",
+    "file": "open-graph-ohouse-careers.jpg"
+  },
+  "AssetOpenGraphOhouseHorizontalStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphOhouseHorizontal",
+    "file": "open-graph-ohouse-horizontal.png"
+  },
+  "AssetOpenGraphOhouseHorizontalEnStillImage": {
+    "kind": "img",
+    "folder": "AssetOpenGraphOhouseHorizontalEn",
+    "file": "open-graph-ohouse-horizontal-en.png"
+  },
+  "AssetOsenseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetOsenseLarge",
+    "file": "image_480.webp"
+  },
+  "AssetPCircleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPCircleLarge",
+    "file": "image_480.webp"
+  },
+  "AssetPackageSurpriseIconsStillImage": {
+    "kind": "img",
+    "folder": "AssetPackageSurpriseIcons",
+    "file": "image_480.webp"
+  },
+  "AssetPackageSurpriseIconsNoLightStillImage": {
+    "kind": "img",
+    "folder": "AssetPackageSurpriseIconsNoLight",
+    "file": "image_480.webp"
+  },
+  "AssetPercentTicketLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPercentTicketLarge",
+    "file": "image_480.webp"
+  },
+  "AssetPercentTicketOnTicketLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPercentTicketOnTicketLarge",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoBathroomTilesIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoBathroomTilesIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoBathroomTilesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoBathroomTilesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoContactFilmIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoContactFilmIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoDoorIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoDoorIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoDoorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoDoorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoHardwoodFlooringIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoHardwoodFlooringIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoKitchenBaseCabinetSinkIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoKitchenBaseCabinetSinkIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoKitchenSinkLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoKitchenSinkLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoO2OPartnersInspectionVar1StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersInspectionVar1",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoO2OPartnersVinylFlooringVar1StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersVinylFlooringVar1",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoO2OPartnersVinylFlooringVar2StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersVinylFlooringVar2",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoO2OPartnersWallpaperInstallationVar1StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersWallpaperInstallationVar1",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoO2OPartnersWallpaperInstallationVar2StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersWallpaperInstallationVar2",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoO2OPartnersWallpaperInstallationVar3StillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoO2OPartnersWallpaperInstallationVar3",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoPaintCanIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoPaintCanIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoPendantLampIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoPendantLampIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoVenetianBlindIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoVenetianBlindIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoWallpaperIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWallpaperIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoWashBasinIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWashBasinIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoWashBasinLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWashBasinLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoWhiteWallpaperLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWhiteWallpaperLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoWindowChassisIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWindowChassisIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoWindowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWindowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoWoodFlooringLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWoodFlooringLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotoWoodPatternVinylFlooringIsometricStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWoodPatternVinylFlooringIsometric",
+    "file": "image_480.webp"
+  },
+  "AssetPhotoWoodPatternVinylLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotoWoodPatternVinylLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBabyDiapersPackWithStackedPadsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBabyDiapersPackWithStackedPadsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBagOfPotatoChipsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBagOfPotatoChipsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBirdShapedWoodenSculptureLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBirdShapedWoodenSculptureLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackAdjustableDeskLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackAdjustableDeskLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackCompactDishRackWithTablewareLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackCompactDishRackWithTablewareLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackKitchenUtensilSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackKitchenUtensilSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackMatteCutlerySetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackMatteCutlerySetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackMinimalistClothingRackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackMinimalistClothingRackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackMinimalistClothingRackWithShirtLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackMinimalistClothingRackWithShirtLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackMinimalistReedDiffuserLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackMinimalistReedDiffuserLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlackWireDishDrainerWithPlatesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlackWireDishDrainerWithPlatesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueAbstractFramedArtLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueAbstractFramedArtLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueAndWhiteMilkCartonLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueAndWhiteMilkCartonLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueBabyBodyWashBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueBabyBodyWashBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueBabyFeedingBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueBabyFeedingBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueBeddingSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueBeddingSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueCeramicPotLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueCeramicPotLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueConeWallMountedSconceLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueConeWallMountedSconceLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueElectricPowerDrillLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueElectricPowerDrillLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueElectricalWallOutletLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueElectricalWallOutletLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueGlassCleanerSprayLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueGlassCleanerSprayLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueLaundryBasketWithRolledTowelsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueLaundryBasketWithRolledTowelsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueLiquidLaundryDetergentLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueLiquidLaundryDetergentLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueMinimalistMetalShelfLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueMinimalistMetalShelfLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueMinimalistTwoTierMetalShelfLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueMinimalistTwoTierMetalShelfLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueMoisturizingCreamJarLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueMoisturizingCreamJarLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueNitrileGloveHoldingAGreenSpongeLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueNitrileGloveHoldingAGreenSpongeLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBluePaintCanWithBrushLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBluePaintCanWithBrushLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBluePlugInLiquidMosquitoRepellentLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBluePlugInLiquidMosquitoRepellentLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueRubberCleaningGlovesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueRubberCleaningGlovesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueScallopedPlacematWithTablewareLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueScallopedPlacematWithTablewareLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueStripedBathMatWithWhiteSlippersLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueStripedBathMatWithWhiteSlippersLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueStripedPillowCaseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueStripedPillowCaseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBlueToothbrushAndToothpasteSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBlueToothbrushAndToothpasteSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBrightOrangeStepTrashCanLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBrightOrangeStepTrashCanLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBrownAmberGlassPumpBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBrownAmberGlassPumpBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBrownCheckeredRugWithWhiteSlippersLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBrownCheckeredRugWithWhiteSlippersLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBrownMaryJaneBabyShoesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBrownMaryJaneBabyShoesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBrownStripedPajamaShirtLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBrownStripedPajamaShirtLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicBuiltInCabinetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicBuiltInCabinetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCannedFoodAnd5PackNoodlesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCannedFoodAnd5PackNoodlesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCarPatternedBabyBeddingSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCarPatternedBabyBeddingSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCatWithScratcherLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCatWithScratcherLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCircularBlackFramedCeilingLightLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCircularBlackFramedCeilingLightLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicClassicSilverWineCorkscrewLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicClassicSilverWineCorkscrewLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicClassicWhiteLedLightBulbLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicClassicWhiteLedLightBulbLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicClearPlasticWaterBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicClearPlasticWaterBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCoffeeBeanBagAndBlueCupLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCoffeeBeanBagAndBlueCupLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicColorfulBallWallMountedCoatRackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicColorfulBallWallMountedCoatRackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicColorfulFlowersInBeigeVaseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicColorfulFlowersInBeigeVaseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicColorfulSoftBuildingBlocksLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicColorfulSoftBuildingBlocksLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCompactDishwasherLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCompactDishwasherLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCompactHomeProjectorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCompactHomeProjectorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCuttingBoardSetWithChefsKnifeLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCuttingBoardSetWithChefsKnifeLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicCylinderAirPurifierLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicCylinderAirPurifierLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDarkGrayBeddingSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDarkGrayBeddingSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDarkGrayLivingRoomCurtainsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDarkGrayLivingRoomCurtainsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDarkGreenRibbedGlassLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDarkGreenRibbedGlassLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDarkRedMushroomTableLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDarkRedMushroomTableLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDayBedJpStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDayBedJp",
+    "file": "image_480.webp"
+  },
+  "AssetPhotographicDecoratedMiniChristmasTreeLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDecoratedMiniChristmasTreeLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDesignerWoodenChairWithMetalLegsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDesignerWoodenChairWithMetalLegsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDeskCalendarLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDeskCalendarLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDesktopComputerMonitorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDesktopComputerMonitorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDogWithHouseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDogWithHouseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicDoubleBedJpStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicDoubleBedJp",
+    "file": "image_480.webp"
+  },
+  "AssetPhotographicElectricRiceCookerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicElectricRiceCookerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFishBowlLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFishBowlLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFoldedGrayQuiltSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFoldedGrayQuiltSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFourPackAaAlkalineBatteriesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFourPackAaAlkalineBatteriesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFourPackToiletPaperRollsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFourPackToiletPaperRollsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFreshBeefAndBananasPackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFreshBeefAndBananasPackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicFrontLoadWashingMachineLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicFrontLoadWashingMachineLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlassBabyFoodJarWithPinkLidLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlassBabyFoodJarWithPinkLidLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyBlueDeliveryBoxLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyBlueDeliveryBoxLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyBlueDeliveryBoxShadowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyBlueDeliveryBoxShadowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyPinkOpenGiftBoxLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyPinkOpenGiftBoxLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyPinkOpenGiftBoxShadowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyPinkOpenGiftBoxShadowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyWaterPurifierGrayLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyWaterPurifierGrayLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyWaterPurifierGrayShadowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyWaterPurifierGrayShadowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyWiFiRouterBlueLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyWiFiRouterBlueLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGlossyWiFiRouterBlueShadowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGlossyWiFiRouterBlueShadowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGolfBallLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGolfBallLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGrayFabricSofaLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGrayFabricSofaLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGrayHorizontalWindowBlindsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGrayHorizontalWindowBlindsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGrayLowModularCabinetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGrayLowModularCabinetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGreenAndBlueStripedDoormatLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGreenAndBlueStripedDoormatLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGreenCeramicCookingPotLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGreenCeramicCookingPotLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGreenDishwashingLiquidBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGreenDishwashingLiquidBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicGreenFabricSofaLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicGreenFabricSofaLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicHangingFishOrnamentLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicHangingFishOrnamentLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicHomeSecurityIpCameraLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicHomeSecurityIpCameraLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicIndoorStationaryExerciseBikeLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicIndoorStationaryExerciseBikeLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicInkjetPrinterWithPaperLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicInkjetPrinterWithPaperLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicIsometricGridLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicIsometricGridLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLaptopComputerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLaptopComputerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLightBlueFoldedDuvetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLightBlueFoldedDuvetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLightBlueModernBabyStrollerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLightBlueModernBabyStrollerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLightBlueQuiltedMattressLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLightBlueQuiltedMattressLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLightBlueTwoTierShoeRackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLightBlueTwoTierShoeRackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLightGreenUpholsteredDiningChairLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLightGreenUpholsteredDiningChairLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicLoafOfPlainBreadLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicLoafOfPlainBreadLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMacrameWallHangingDecorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMacrameWallHangingDecorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMatteBlackKitchenFaucetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMatteBlackKitchenFaucetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMinimalistBlackFloorLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMinimalistBlackFloorLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMintGreenCityBicycleWithBasketLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMintGreenCityBicycleWithBasketLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMintGreenInstantCameraLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMintGreenInstantCameraLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicModernCarTireAndAlloyWheelLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicModernCarTireAndAlloyWheelLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicModernDoubleSquareCeilingLightLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicModernDoubleSquareCeilingLightLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicModernSmartphoneLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicModernSmartphoneLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicModernWhiteMassageChairLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicModernWhiteMassageChairLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicModularShelvingUnitLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicModularShelvingUnitLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicMultiColoredModularStorageBinsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicMultiColoredModularStorageBinsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicNavyBlueDomeTableLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicNavyBlueDomeTableLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicNavyBlueHairDryerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicNavyBlueHairDryerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicNavyBlueHardshellCarryOnSuitcaseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicNavyBlueHardshellCarryOnSuitcaseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOliveGreenDesktopElectricFanLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOliveGreenDesktopElectricFanLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOliveGreenPedestalServingBowlLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOliveGreenPedestalServingBowlLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOliveGreenSlattedOutdoorChairLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOliveGreenSlattedOutdoorChairLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrange10kgKettlebellLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrange10kgKettlebellLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeAndGreenCheckeredRugLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeAndGreenCheckeredRugLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeArmchairWithFabricThrowLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeArmchairWithFabricThrowLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeCeramicMugLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeCeramicMugLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeGinghamCheckeredApronLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeGinghamCheckeredApronLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeLiquidDetergentBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeLiquidDetergentBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeModernArmchairLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeModernArmchairLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangePumpSoapBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangePumpSoapBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOrangeWoodenRockingHorseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOrangeWoodenRockingHorseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicOutdoorCampingTentLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicOutdoorCampingTentLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPairOfWoodenClothesHangerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPairOfWoodenClothesHangerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPeachShapedDecorativeTableLampLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPeachShapedDecorativeTableLampLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPetFoodBowlLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPetFoodBowlLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkBabyWetWipesPackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkBabyWetWipesPackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkCheckeredPuzzlePlayMatLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkCheckeredPuzzlePlayMatLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkDomePendantLightLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkDomePendantLightLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkFoamSoapDispenserLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkFoamSoapDispenserLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkGamingControllerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkGamingControllerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkHeartPatternDessertBowlLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkHeartPatternDessertBowlLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkModernLightingLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkModernLightingLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkPlushBunnyToyLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkPlushBunnyToyLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkSanitaryPadPackagingLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkSanitaryPadPackagingLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkSkinCareGiftSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkSkinCareGiftSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkTwoDrawerSideCabinetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkTwoDrawerSideCabinetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkVerticalStripedPillowCaseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkVerticalStripedPillowCaseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPinkYarnBallWithKnittingNeedleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPinkYarnBallWithKnittingNeedleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPottedGreenPlantLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPottedGreenPlantLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPowderedMilkStorageContainerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPowderedMilkStorageContainerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPurpleGinghamCheckTableRunnerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPurpleGinghamCheckTableRunnerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicPurpleTexturedSquareRugLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicPurpleTexturedSquareRugLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRazorAndShavingFoamSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRazorAndShavingFoamSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRedAndBlueBoldStripedCushionLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRedAndBlueBoldStripedCushionLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRedAndBlueStripedPartyHatLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRedAndBlueStripedPartyHatLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRedHouseholdFireExtinguisherLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRedHouseholdFireExtinguisherLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRedModernVanityTableWithMirrorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRedModernVanityTableWithMirrorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRedTomatoKetchupBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRedTomatoKetchupBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRefrigeratorAndWashingMachineSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRefrigeratorAndWashingMachineSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRoboticVacuumCleanerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRoboticVacuumCleanerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicRoundWoodenPedestalTableLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicRoundWoodenPedestalTableLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSageGreenReversibleQuiltLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSageGreenReversibleQuiltLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSiliconeDividedPlateWithSpoonsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSiliconeDividedPlateWithSpoonsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSilverLeverDoorHandleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSilverLeverDoorHandleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSingleBedFrameJpStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSingleBedFrameJp",
+    "file": "image_480.webp"
+  },
+  "AssetPhotographicSingleLoftBedJpStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSingleLoftBedJp",
+    "file": "image_480.webp"
+  },
+  "AssetPhotographicSlimSmartTvLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSlimSmartTvLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSmallBottleOfSuperGlueLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSmallBottleOfSuperGlueLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSmartBidetToiletSeatLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSmartBidetToiletSeatLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSmartRefrigeratorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSmartRefrigeratorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSmartwatchWithBlackBandLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSmartwatchWithBlackBandLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicSnailShapedPlushToyLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicSnailShapedPlushToyLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackableStorageBoxesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackableStorageBoxesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackedBrownPaperCupsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackedBrownPaperCupsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackedCottonTowelsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackedCottonTowelsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackedCreamAndOliveGreenTowelsLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackedCreamAndOliveGreenTowelsLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackedEcoFriendlyLunchBoxesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackedEcoFriendlyLunchBoxesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStackedWhiteStorageContainersLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStackedWhiteStorageContainersLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStainlessSteelDoorHingeLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStainlessSteelDoorHingeLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStainlessSteelMokaPotLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStainlessSteelMokaPotLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicStorageDoubleBedJpStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicStorageDoubleBedJp",
+    "file": "image_480.webp"
+  },
+  "AssetPhotographicTabletWithStylusPenLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicTabletWithStylusPenLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicTransparentStorageBagLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicTransparentStorageBagLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicTwoTierColorfulPlateStandLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicTwoTierColorfulPlateStandLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicVintageStyleDigitalCameraLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicVintageStyleDigitalCameraLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWallMountedAirConditionerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWallMountedAirConditionerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWallMountedAirConditionerUnitLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWallMountedAirConditionerUnitLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWaterPurifierWithGlassLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWaterPurifierWithGlassLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWetWipesPackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWetWipesPackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteCosmeticOrganizerWithMirrorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteCosmeticOrganizerWithMirrorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteDecorativeWallMoldingLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteDecorativeWallMoldingLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteDesktopDrawerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteDesktopDrawerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteMetalDishRackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteMetalDishRackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteMoistureAbsorberContainerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteMoistureAbsorberContainerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhitePedestalBowlWithTomatoLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhitePedestalBowlWithTomatoLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteStripedBeddingSetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteStripedBeddingSetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteVitaminSupplementBottleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteVitaminSupplementBottleLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWhiteWirelessKeyboardLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWhiteWirelessKeyboardLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWiFiRouterLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWiFiRouterLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWirelessOverEarHeadphonesLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWirelessOverEarHeadphonesLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenBabyRockingCribLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenBabyRockingCribLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenBedFrameWithWhiteLinenLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenBedFrameWithWhiteLinenLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenDeskOrganizerWithStationeryLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenDeskOrganizerWithStationeryLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenFoldingXFrameLaundryRackLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenFoldingXFrameLaundryRackLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenKitchenSinkCabinetLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenKitchenSinkCabinetLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenOpenBookshelfLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenOpenBookshelfLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicWoodenWavyScreenDividerLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicWoodenWavyScreenDividerLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicYellowRectangularRoundedMirrorLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicYellowRectangularRoundedMirrorLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicYellowRoundWallClockLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicYellowRoundWallClockLarge",
+    "file": "image_480.png"
+  },
+  "AssetPhotographicYellowSwirlGlassVaseLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetPhotographicYellowSwirlGlassVaseLarge",
+    "file": "image_480.png"
+  },
+  "AssetPlaceholderOhouseSymbolStillImage": {
+    "kind": "img",
+    "folder": "AssetPlaceholderOhouseSymbol",
+    "file": "placeholder-ohouse-symbol.svg"
+  },
+  "AssetProfileOhouseSymbolStillImage": {
+    "kind": "img",
+    "folder": "AssetProfileOhouseSymbol",
+    "file": "profile-ohouse-symbol.svg"
+  },
+  "AssetRankBookmarkBrandStillImage": {
+    "kind": "img",
+    "folder": "AssetRankBookmarkBrand",
+    "file": "image_480.png"
+  },
+  "AssetRankBookmarkGrayStillImage": {
+    "kind": "img",
+    "folder": "AssetRankBookmarkGray",
+    "file": "image_480.png"
+  },
+  "AssetScreenshotMobileFacebookProfileOhouseStillImage": {
+    "kind": "img",
+    "folder": "AssetScreenshotMobileFacebookProfileOhouse",
+    "file": "image_480.webp"
+  },
+  "AssetScreenshotMobileInstagramProfileTodayhouseStillImage": {
+    "kind": "img",
+    "folder": "AssetScreenshotMobileInstagramProfileTodayhouse",
+    "file": "image_480.webp"
+  },
+  "AssetScreenshotMobileTiktokProfileOhouseOfficialStillImage": {
+    "kind": "img",
+    "folder": "AssetScreenshotMobileTiktokProfileOhouseOfficial",
+    "file": "image_480.webp"
+  },
+  "AssetScreenshotMobileXProfileTodayinteriorStillImage": {
+    "kind": "img",
+    "folder": "AssetScreenshotMobileXProfileTodayinterior",
+    "file": "image_480.webp"
+  },
+  "AssetScreenshotMobileYoutubeChannelOhouseInteriorStillImage": {
+    "kind": "img",
+    "folder": "AssetScreenshotMobileYoutubeChannelOhouseInterior",
+    "file": "image_480.webp"
+  },
+  "AssetTempAssetMotionGetPointPCircleAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionGetPointPCircle",
+    "file": "temp-asset-motion-get-point-p-circle.webp"
+  },
+  "AssetTempAssetMotionGetPointPCircleApngAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionGetPointPCircleApng",
+    "file": "temp-asset-motion-get-point-p-circle-apng.apng"
+  },
+  "AssetTempAssetMotionGiftLargeAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionGiftLarge",
+    "file": "temp-asset-motion-gift-large.webp"
+  },
+  "AssetTempAssetMotionGiftLargeApngAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionGiftLargeApng",
+    "file": "temp-asset-motion-gift-large-apng.apng"
+  },
+  "AssetTempAssetMotionSpinnerAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionSpinner",
+    "file": "temp-asset-motion-spinner.webp"
+  },
+  "AssetTempAssetMotionSpinnerApngAnimatedImage": {
+    "kind": "img",
+    "folder": "AssetTempAssetMotionSpinnerApng",
+    "file": "temp-asset-motion-spinner-apng.apng"
+  },
+  "AssetThumbnailBadgeOhouseStillImage": {
+    "kind": "img",
+    "folder": "AssetThumbnailBadgeOhouse",
+    "file": "image_480.png"
+  },
+  "AssetThumbnailBadgeOnSaleJaStillImage": {
+    "kind": "img",
+    "folder": "AssetThumbnailBadgeOnSaleJa",
+    "file": "image_480.png"
+  },
+  "AssetTossHorizontalStillImage": {
+    "kind": "img",
+    "folder": "AssetTossHorizontal",
+    "file": "image_480.webp"
+  },
+  "AssetTossSymbolStillImage": {
+    "kind": "img",
+    "folder": "AssetTossSymbol",
+    "file": "image_480.webp"
+  },
+  "AssetTossSymbolCircleStillImage": {
+    "kind": "img",
+    "folder": "AssetTossSymbolCircle",
+    "file": "image_480.webp"
+  },
+  "AssetWonSignCircleLargeStillImage": {
+    "kind": "img",
+    "folder": "AssetWonSignCircleLarge",
+    "file": "image_480.webp"
+  },
+  "AssetMotionChevronDownLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionChevronDown",
+    "file": "motion-chevron-down.json"
+  },
+  "AssetMotionGetPointPCircleLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionGetPointPCircle",
+    "file": "image_480_animated.webp"
+  },
+  "AssetMotionHandPinchZoomInLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionHandPinchZoomIn",
+    "file": "motion-hand-pinch-zoom-in.json"
+  },
+  "AssetMotionHandSwipeLeftLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionHandSwipeLeft",
+    "file": "motion-hand-swipe-left.json"
+  },
+  "AssetMotionIconMagnifyingGlassViewfinderLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionIconMagnifyingGlassViewfinder",
+    "file": "motion-icon-magnifying-glass-viewfinder.json"
+  },
+  "AssetMotionIconMagnifyingGlassViewfinderGenuineBlueLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionIconMagnifyingGlassViewfinderGenuineBlue",
+    "file": "motion-icon-magnifying-glass-viewfinder-genuine-blue.json"
+  },
+  "AssetMotionPlusCircleSweepLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionPlusCircleSweep",
+    "file": "motion-plus-circle-sweep.json"
+  },
+  "AssetMotionPushBenefitNudgeLottie": {
+    "kind": "lottie",
+    "folder": "AssetMotionPushBenefitNudge",
+    "file": "motion-push-benefit-nudge.json"
+  }
+}

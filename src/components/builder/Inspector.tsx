@@ -4,19 +4,20 @@ import { cn } from "@/lib/cn";
 import { useBuilderStore, selectSelectedSection } from "@/store/builder-store";
 import type { InspectorTab } from "@/store/builder-store";
 import PropsTab from "./tabs/PropsTab";
-import SlotsTab from "./tabs/SlotsTab";
 import AssetsTab from "./tabs/AssetsTab";
 
 const TABS: { id: InspectorTab; label: string }[] = [
   { id: "props", label: "타이틀" },
-  { id: "slots", label: "콘텐츠 슬롯" },
   { id: "assets", label: "이미지" },
 ];
 
 export default function Inspector() {
-  const tab = useBuilderStore((s) => s.inspectorTab);
+  const rawTab = useBuilderStore((s) => s.inspectorTab);
   const setTab = useBuilderStore((s) => s.setInspectorTab);
   const section = useBuilderStore(selectSelectedSection);
+  // "slots" 탭은 v3에서 "타이틀"로 통합되어 제거됨. 잔존 상태가 들어오면 props로 폴백.
+  const tab: InspectorTab =
+    TABS.some((t) => t.id === rawTab) ? rawTab : "props";
 
   if (!section) {
     return (
@@ -54,7 +55,6 @@ export default function Inspector() {
       </div>
       <div className="builder-scroll flex-1 overflow-y-auto p-4" key={section.id}>
         {tab === "props" && <PropsTab />}
-        {tab === "slots" && <SlotsTab />}
         {tab === "assets" && <AssetsTab />}
       </div>
     </div>

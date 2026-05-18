@@ -18,10 +18,10 @@ export type SectionPresetId =
   // 가변 영역
   | "usp"
   | "table"
-  | "coverage"
   | "review"
   | "process"
   | "cross-sell"
+  | "faq"
   | "cta-form";
 
 export interface SectionSlotSpec {
@@ -100,8 +100,8 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
 
   usp: {
     id: "usp",
-    label: "USP 카드",
-    description: "강점/문제정의 카드 — 통상 grid 레이아웃 사용",
+    label: "카드 그리드",
+    description: "균일한 카드를 그리드/리스트/캐러셀로 배치. 카드 변형(usage)으로 USP·신뢰·서비스 등 다양한 용도 커버 (CONVENTIONS: section.card-grid)",
     category: "content",
     defaultLocked: false,
     icon: "LayoutGrid",
@@ -112,48 +112,23 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
     slots: [
       {
         name: "content",
-        label: "카드 컨테이너",
+        label: "card slot",
         allows: ["card"], // ★ 단일 card
         min: 1,
         max: 1,
       },
     ],
     assets: [],
-    maxPerPage: 3,
+    maxPerPage: 5,
   },
 
   table: {
     id: "table",
-    label: "비교 테이블",
-    description: "타사 vs 자사 vs 책임보장 등 비교형 표",
+    label: "비교 카드",
+    description: "여러 옵션을 카드 단위로 비교 (CONVENTIONS: section.card-grid, 기본 아이템 slot-item.table-card)",
     category: "content",
     defaultLocked: false,
     icon: "Table",
-    uiSpec: {
-      sectionTitle: { maxChar: 22, maxLine: 2, required: true },
-      sectionSubtitle: { maxChar: 18, maxLine: 1 },
-      colHeaders: { maxLine: 1 },
-    },
-    slots: [
-      {
-        name: "rows",
-        label: "비교 행",
-        allows: ["table-row"],
-        min: 1,
-        max: 12,
-      },
-    ],
-    assets: [],
-    maxPerPage: 2,
-  },
-
-  coverage: {
-    id: "coverage",
-    label: "책임보장 (신뢰)",
-    description: "보장 범위·파트너 로고 등으로 신뢰 강화",
-    category: "content",
-    defaultLocked: false,
-    icon: "ShieldCheck",
     uiSpec: {
       sectionTitle: { maxChar: 22, maxLine: 2, required: true },
       sectionSubtitle: { maxChar: 18, maxLine: 1 },
@@ -161,20 +136,20 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
     slots: [
       {
         name: "content",
-        label: "카드 컨테이너",
-        allows: ["card"],
+        label: "card slot",
+        allows: ["card"], // tablecard variant 사용
         min: 1,
         max: 1,
       },
     ],
-    assets: [{ slotName: "partnerLogos", label: "파트너 로고", required: false }],
+    assets: [],
     maxPerPage: 2,
   },
 
   review: {
     id: "review",
-    label: "리뷰",
-    description: "고객 후기 — 통상 carousel 레이아웃 (autoScroll on/off)",
+    label: "후기 리스트",
+    description: "인용형 카드 리스트 (CONVENTIONS: section.quote-list, 기본 아이템 slot-item.review-card)",
     category: "content",
     defaultLocked: false,
     icon: "MessagesSquare",
@@ -185,12 +160,11 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
     slots: [
       {
         name: "content",
-        label: "카드 컨테이너",
+        label: "card slot",
         allows: ["card"],
         min: 1,
         max: 1,
       },
-      { name: "tabs", label: "탭 (선택)", allows: ["tab"], min: 0, max: 4 },
     ],
     assets: [],
     maxPerPage: 2,
@@ -198,8 +172,8 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
 
   process: {
     id: "process",
-    label: "프로세스",
-    description: "이용 단계 N-step. grid 또는 row 레이아웃",
+    label: "프로세스 단계",
+    description: "순서 있는 단계 카드 (CONVENTIONS: section.steps, 기본 아이템 slot-item.progress-card)",
     category: "content",
     defaultLocked: false,
     icon: "ListOrdered",
@@ -210,7 +184,7 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
     slots: [
       {
         name: "content",
-        label: "카드 컨테이너",
+        label: "card slot",
         allows: ["card"],
         min: 1,
         max: 1,
@@ -222,8 +196,8 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
 
   "cross-sell": {
     id: "cross-sell",
-    label: "크로스셀링",
-    description: "관련 서비스 카드 — row 또는 grid",
+    label: "카드 캐러셀",
+    description: "가로 스크롤형 카드 (CONVENTIONS: section.card-carousel)",
     category: "content",
     defaultLocked: false,
     icon: "Boxes",
@@ -234,8 +208,32 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
     slots: [
       {
         name: "content",
-        label: "카드 컨테이너",
+        label: "card slot",
         allows: ["card"],
+        min: 1,
+        max: 1,
+      },
+    ],
+    assets: [],
+    maxPerPage: 1,
+  },
+
+  faq: {
+    id: "faq",
+    label: "FAQ",
+    description: "질문/답변 accordion 리스트 (CONVENTIONS: section.accordion, 카드 변형 faqcard)",
+    category: "content",
+    defaultLocked: false,
+    icon: "HelpCircle",
+    uiSpec: {
+      sectionTitle: { maxChar: 22, maxLine: 2, required: true },
+      sectionSubtitle: { maxChar: 18, maxLine: 1 },
+    },
+    slots: [
+      {
+        name: "content",
+        label: "card slot",
+        allows: ["card"], // faqcard variant 사용
         min: 1,
         max: 1,
       },
@@ -246,8 +244,8 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
 
   "cta-form": {
     id: "cta-form",
-    label: "폼 / 전화 CTA",
-    description: "상담 신청 폼 또는 전화 CTA 박스",
+    label: "폼",
+    description: "입력 필드 슬롯 (CONVENTIONS: section.form, slot-item.input)",
     category: "cta",
     defaultLocked: false,
     icon: "PhoneCall",
@@ -266,8 +264,8 @@ export const SECTION_PRESETS: Record<SectionPresetId, SectionPreset> = {
 
   "sticky-cta": {
     id: "sticky-cta",
-    label: "하단 고정 CTA",
-    description: "스크롤 따라오는 고정 버튼 바",
+    label: "CTA",
+    description: "화면에 고정되는 액션 바 (CONVENTIONS: section.sticky-bar)",
     category: "fixed",
     defaultLocked: true,
     icon: "ArrowDownToLine",

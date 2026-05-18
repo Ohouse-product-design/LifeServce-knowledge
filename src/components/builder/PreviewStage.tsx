@@ -5,13 +5,16 @@ import { useMemo } from "react";
 import { cn } from "@/lib/cn";
 import { VIEWPORT_WIDTH, type Viewport } from "@/schema/doc";
 import { useBuilderStore } from "@/store/builder-store";
+import PreviewIframe from "./PreviewIframe";
 import PreviewRenderer from "../preview/PreviewRenderer";
+
+const usePreviewIframe =
+  process.env.NEXT_PUBLIC_PREVIEW_IFRAME !== "false";
 
 /**
  * 가운데 프리뷰 패널.
- * - 디바이스 토글·해상도 안내·검수 요청: 프리뷰 카드 **상단** 보조 줄
- * - 1차 골격: iframe 대신 동일 프로세스에서 PreviewRenderer 를 직접 렌더하고
- *   고정 width container 로 시뮬레이션 — 추후 실 iframe + postMessage 동기화로 교체.
+ * - 기본: `/preview/[slug]?embed=1` iframe + postMessage (Storybook 과 동일 PreviewRenderer)
+ * - `NEXT_PUBLIC_PREVIEW_IFRAME=false` 이면 인라인 PreviewRenderer
  */
 export default function PreviewStage() {
   const viewport = useBuilderStore((s) => s.viewport);
@@ -51,6 +54,16 @@ export default function PreviewStage() {
               {viewport === "tablet" && "iPad Mini 기준 · 768 × 1024"}
               {viewport === "desktop" && "Desktop · 1280 × auto"}
             </span>
+            {usePreviewIframe ? (
+              <a
+                href={`/preview/${doc.meta.slug}?embed=1&viewport=${viewport}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-builder-accent hover:underline"
+              >
+                프리뷰 탭
+              </a>
+            ) : null}
             <button
               type="button"
               onClick={() => openReviewModal()}
@@ -64,13 +77,23 @@ export default function PreviewStage() {
           className="mx-auto rounded-ods-12 border border-builder-border bg-white text-black shadow-2xl transition-all"
           style={{ width: `${width}px`, maxWidth: "100%" }}
         >
-          <PreviewRenderer
-            doc={doc}
-            viewport={viewport}
-            selectedSectionId={selection.sectionId ?? undefined}
-            onSelectSection={selectSection}
-            onRequestAssetSlot={openAssetModal}
-          />
+          {usePreviewIframe ? (
+            <PreviewIframe
+              doc={doc}
+              viewport={viewport}
+              selectedSectionId={selection.sectionId ?? undefined}
+              onSelectSection={selectSection}
+              width={width}
+            />
+          ) : (
+            <PreviewRenderer
+              doc={doc}
+              viewport={viewport}
+              selectedSectionId={selection.sectionId ?? undefined}
+              onSelectSection={selectSection}
+              onRequestAssetSlot={openAssetModal}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,26 +1,28 @@
-import PreviewRenderer from "@/components/preview/PreviewRenderer";
-import { seedDoc } from "@/lib/seed";
+import PreviewPageClient from "./PreviewPageClient";
 
 /**
- * 프리뷰 iframe이 로드하는 페이지.
- * 실제 구현에서는 slug로 DB/스토어에서 LandingPageDoc을 조회하지만,
- * 1차 골격에서는 seed 데이터를 그대로 사용한다.
+ * 프리뷰 페이지.
+ * - `?embed=1` — 빌더 PreviewStage iframe (doc 는 postMessage 로 수신)
+ * - 그 외 — `/preview/moving` 단독 열람
  */
 export default function PreviewPage({
   params,
   searchParams,
 }: {
   params: { slug: string };
-  searchParams: { viewport?: "mobile" | "tablet" | "desktop"; selected?: string };
+  searchParams: { viewport?: ViewportParam; selected?: string; embed?: string };
 }) {
   const viewport = searchParams.viewport ?? "desktop";
-  const selectedId = searchParams.selected;
+  const embed = searchParams.embed === "1" || searchParams.embed === "true";
 
   return (
-    <PreviewRenderer
-      doc={seedDoc}
+    <PreviewPageClient
+      slug={params.slug}
       viewport={viewport}
-      selectedSectionId={selectedId}
+      embed={embed}
+      selected={searchParams.selected}
     />
   );
 }
+
+type ViewportParam = "mobile" | "tablet" | "desktop";

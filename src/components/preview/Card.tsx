@@ -13,17 +13,20 @@
  * - viewport 별 컬럼 수 / 카드 폭은 부모(PreviewRenderer) 가 viewport prop 으로 결정해서 전달
  */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/cn";
-import { IconPhoto, IconStar, IconStarFilled } from "@bucketplace/icons";
+import { IconChevronDown, IconPhoto, IconStar, IconStarFilled } from "@bucketplace/icons";
 import type { AssetSlotModalOpenContext } from "@/schema/asset-modal-context";
-import type {
-  CardCell,
-  CardLayoutSettings,
-  CardSlotContent,
-  CardSlotName,
-  CardUsagePresetId,
+import {
+  CARD_USAGE_PRESETS,
+  type CardCell,
+  type CardCellTheme,
+  type CardLayoutSettings,
+  type CardSlotContent,
+  type CardSlotName,
+  type CardUsagePresetId,
+  type ImgcardType,
 } from "@/schema/card";
 import type { Viewport } from "@/schema/doc";
 import OdsAssetRenderer from "./OdsAssetRenderer";
@@ -47,19 +50,74 @@ interface CardProps {
   layout: CardLayoutSettings;
   cells: CardCell[];
   viewport: Viewport;
+  /** imgcard 서브 변형 — bgfullimg(디폴트) | leading-asset */
+  cardType?: ImgcardType;
   /** 빌더 프리뷰: 에셋 클릭 시 슬롯 교체 모달 */
   previewAsset?: CardPreviewAssetBinding;
 }
 
-export default function Card({ usage, layout, cells, viewport, previewAsset }: CardProps) {
-  switch (layout.type) {
+/**
+ * CONVENTIONS §11 — minWidth 폴백.
+ *
+ * grid 가 선택된 상태에서 viewport 기준 per-card 폭이 변형의 minWidth 미만이면
+ * `allowedLayouts` 순서로 carousel → list 로 자동 강등한다.
+ *
+ * 폭 계산은 viewport 기반 휴리스틱 (375/768/1280 에서 페이지 거터를 뺀 사용 폭).
+ * 정확한 컨테이너 폭은 ResizeObserver 가 필요하지만 v1 은 단순화.
+ */
+const APPROX_USABLE_WIDTH_PX: Record<Viewport, number> = {
+  mobile: 360,
+  tablet: 750,
+  desktop: 1200,
+};
+
+function resolveLayoutWithFallback(
+  usage: CardUsagePresetId,
+  layout: CardLayoutSettings,
+  viewport: Viewport
+): CardLayoutSettings {
+  if (layout.type !== "grid") return layout;
+
+  const preset = CARD_USAGE_PRESETS[usage];
+  const cols = usage === "listcard" ? (viewport === "mobile" ? 1 : 2) : 2;
+  const usable = APPROX_USABLE_WIDTH_PX[viewport];
+  const perCardWidth = (usable - GRID_FIXED_GAP_PX * (cols - 1)) / cols;
+
+  if (perCardWidth >= preset.minWidth) return layout;
+
+  // 폴백 순서: carousel → list (CONVENTIONS §11.1)
+  if (preset.allowedLayouts.includes("carousel")) {
+    return {
+      type: "carousel",
+      settings: {
+        cardWidth: {
+          mobile: preset.minWidth,
+          tablet: preset.minWidth,
+          desktop: preset.minWidth,
+        },
+        gap: 8,
+        autoScroll: false,
+      },
+    };
+  }
+  if (preset.allowedLayouts.includes("list")) {
+    return { type: "list", settings: { gap: 8, align: "start" } };
+  }
+  // 둘 다 안 되면 원본 grid 유지 (시각적 손상 허용)
+  return layout;
+}
+
+export default function Card({ usage, layout, cells, viewport, cardType, previewAsset }: CardProps) {
+  const effective = resolveLayoutWithFallback(usage, layout, viewport);
+  switch (effective.type) {
     case "grid":
       return (
         <GridLayout
           usage={usage}
           cells={cells}
           viewport={viewport}
-          settings={layout.settings}
+          settings={effective.settings}
+          cardType={cardType}
           previewAsset={previewAsset}
         />
       );
@@ -69,17 +127,19 @@ export default function Card({ usage, layout, cells, viewport, previewAsset }: C
           usage={usage}
           cells={cells}
           viewport={viewport}
-          settings={layout.settings}
+          settings={effective.settings}
+          cardType={cardType}
           previewAsset={previewAsset}
         />
       );
-    case "row":
+    case "list":
       return (
-        <RowLayout
+        <ListLayout
           usage={usage}
           cells={cells}
           viewport={viewport}
-          settings={layout.settings}
+          settings={effective.settings}
+          cardType={cardType}
           previewAsset={previewAsset}
         />
       );
@@ -102,16 +162,18 @@ function GridLayout({
   cells,
   viewport,
   settings: _settings,
+  cardType,
   previewAsset,
 }: {
   usage: CardUsagePresetId;
   cells: CardCell[];
   viewport: Viewport;
   settings: Extract<CardLayoutSettings, { type: "grid" }>["settings"];
+  cardType?: ImgcardType;
   previewAsset?: CardPreviewAssetBinding;
 }) {
   const gridCols =
-    usage === "service"
+    usage === "listcard"
       ? viewport === "mobile"
         ? "grid-cols-1"
         : "grid-cols-2"
@@ -128,6 +190,7 @@ function GridLayout({
             cell={cell}
             usage={usage}
             viewport={viewport}
+            cardType={cardType}
             previewAsset={previewAsset}
           />
         </div>
@@ -153,12 +216,14 @@ function CarouselLayout({
   cells,
   viewport,
   settings,
+  cardType,
   previewAsset,
 }: {
   usage: CardUsagePresetId;
   cells: CardCell[];
   viewport: Viewport;
   settings: Extract<CardLayoutSettings, { type: "carousel" }>["settings"];
+  cardType?: ImgcardType;
   previewAsset?: CardPreviewAssetBinding;
 }) {
   const cardWidth = settings.cardWidth[viewport] ?? 320;
@@ -195,6 +260,7 @@ function CarouselLayout({
               cell={cell}
               usage={usage}
               viewport={viewport}
+              cardType={cardType}
               previewAsset={previewAsset}
             />
           </div>
@@ -237,20 +303,22 @@ function CarouselLayout({
 
 const ROW_FIXED_GAP_PX = 8;
 
-function RowLayout({
+function ListLayout({
   usage,
   cells,
   viewport,
   settings: _settings,
+  cardType,
   previewAsset,
 }: {
   usage: CardUsagePresetId;
   cells: CardCell[];
   viewport: Viewport;
-  settings: Extract<CardLayoutSettings, { type: "row" }>["settings"];
+  settings: Extract<CardLayoutSettings, { type: "list" }>["settings"];
+  cardType?: ImgcardType;
   previewAsset?: CardPreviewAssetBinding;
 }) {
-  if (usage === "service") {
+  if (usage === "listcard") {
     const isMobile = viewport === "mobile";
     return (
       <div
@@ -266,6 +334,7 @@ function RowLayout({
               cell={cell}
               usage={usage}
               viewport={viewport}
+              cardType={cardType}
               previewAsset={previewAsset}
             />
           </div>
@@ -285,6 +354,7 @@ function RowLayout({
             cell={cell}
             usage={usage}
             viewport={viewport}
+            cardType={cardType}
             previewAsset={previewAsset}
           />
         </div>
@@ -301,11 +371,13 @@ function CellRenderer({
   cell,
   usage,
   viewport: _viewport,
+  cardType,
   previewAsset,
 }: {
   cell: CardCell;
   usage: CardUsagePresetId;
   viewport: Viewport;
+  cardType?: ImgcardType;
   previewAsset?: CardPreviewAssetBinding;
 }) {
   const openSlot = (slot: CardSlotName) => {
@@ -322,16 +394,19 @@ function CellRenderer({
     previewAsset ? () => openSlot(slot) : undefined;
 
   switch (usage) {
-    case "usp":
-      return <CardContentsCell cell={cell} onRequestSlotEdit={slotEdit("media")} />;
-    case "review":
+    case "imgcard":
+      // cardType 으로 분기: bgfullimg(디폴트, 풀배경) / leading-asset(상단 에셋)
+      return cardType === "leading-asset"
+        ? <CardLeadingAssetCell cell={cell} onRequestSlotEdit={slotEdit("media")} />
+        : <CardBgFullImgCell cell={cell} onRequestSlotEdit={slotEdit("media")} />;
+    case "reviewcard":
       return <CardReviewCell cell={cell} onRequestSlotEdit={slotEdit("media")} />;
-    case "step":
-      return <CardStepCell cell={cell} onRequestSlotEdit={slotEdit("media")} />;
-    case "service":
+    case "listcard":
       return <ListCell cell={cell} onRequestSlotEdit={slotEdit("icon")} />;
-    case "custom":
-      return <CardContentsCell cell={cell} onRequestSlotEdit={slotEdit("media")} />;
+    case "tablecard":
+      return <CardTableCell cell={cell} />;
+    case "faqcard":
+      return <CardFaqCell cell={cell} />;
   }
 }
 
@@ -412,7 +487,7 @@ function asCta(c?: CardSlotContent): { label: string; url: string } | null {
  * - 미디어 영역 비율: **3:4** (가로:세로, 세로형 카드) — 그리드 열 너비에 맞춤
  * - title / body / tag 레이아웃 동일
  */
-function CardContentsCell({
+function CardBgFullImgCell({
   cell,
   onRequestSlotEdit,
 }: {
@@ -471,95 +546,68 @@ function CardContentsCell({
 }
 
 /**
- * 리뷰 카드 — Figma `card_review_internet` (node 132:4457) 스펙 적용.
- * - 컨테이너 200px 높이 흰 배경 p-16 rounded-12
- * - title  : Body16 SemiBold 16/20 -0.3, 2줄 ellipsis (whitespace-pre-line)
- * - meta   : Detail12 Medium 12/16. items 가 3개 이상이면 마지막 항목은 `|` 로 구분.
- *            중간 항목들은 `·` 로 join. (예: 신혼 · U+ 500MB TV결합 | km***)
- * - media  : 48×48 rounded-10 작성자/제품 사진 + 5% 검정 오버레이.
- * - body   : Body14 Regular 14/20 -0.3, w-254 ellipsis 3줄. `**...**` 마커는 SemiBold 변환.
- * - rating : 선택 슬롯이 채워진 경우만 별점 노출 (기본 Lead 시안은 사용 안 함).
+ * 리뷰 카드 — 후기 리스트 섹션(seed.ts `sec-review` / section.quote-list) 캐노니컬 스펙.
+ *
+ * 구조 (위→아래):
+ *   1. ★★★★★  별점 (Yellow, 18px)
+ *   2. 헤드라인 (Body16 SemiBold 16/20, `\n` 다중줄, line-clamp 없음)
+ *   3. 메타 (Detail12 Medium 12/16, 마지막 항목 앞에 `|`, 나머지는 `·` join)
+ *   4. 본문 (Body14 Regular 14/20, line-clamp-3, `**...**` SemiBold 변환)
+ *
+ * - 컨테이너: 흰 배경, p-4, rounded-ods-12, 높이 가변(콘텐츠 기반).
+ * - 작성자 사진(media) 슬롯은 사용하지 않음 — 후기 리스트 섹션에 없음.
+ * - 폭은 부모 layout 이 결정 (CONVENTIONS §11 minWidth=254).
  */
-function CardReviewCell({
-  cell,
-  onRequestSlotEdit,
-}: {
-  cell: CardCell;
-  onRequestSlotEdit?: () => void;
-}) {
+function CardReviewCell({ cell }: { cell: CardCell; onRequestSlotEdit?: () => void }) {
   const rating = asRating(slot(cell, "rating"));
   const title = asText(slot(cell, "title"));
   const body = asText(slot(cell, "body"));
   const meta = asMeta(slot(cell, "meta"));
-  const media = asAsset(slot(cell, "media"));
   const metaHead = meta && meta.length > 1 ? meta.slice(0, -1) : meta ?? [];
   const metaTail = meta && meta.length > 1 ? meta[meta.length - 1] : null;
   return (
-    <div className="flex h-[200px] w-full flex-col gap-5 rounded-ods-12 bg-white p-4">
-      <div className="flex w-full gap-3">
-        <div className="flex flex-1 flex-col gap-1.5 tracking-[-0.3px]">
-          {rating && (
-            <div
-              className="flex gap-0.5 text-ods-star-yellow"
-              role="img"
-              aria-label={`별점 ${rating.value}점 만점 ${rating.max}점`}
-            >
-              {Array.from({ length: rating.max }).map((_, i) => (
-                <span key={i} className="inline-flex shrink-0" aria-hidden>
-                  {i < rating.value ? (
-                    <IconStarFilled size={18} className="text-ods-star-yellow" />
-                  ) : (
-                    <IconStar size={18} className="text-ods-star-yellow opacity-45" />
-                  )}
-                </span>
-              ))}
-            </div>
-          )}
-          {title && (
-            <h3 className="whitespace-pre-line font-pretendard text-[16px] font-semibold leading-5 text-ods-text-primary line-clamp-2">
-              {title}
-            </h3>
-          )}
-          {meta && meta.length > 0 && (
-            <div className="flex items-center gap-1 whitespace-nowrap font-pretendard text-[12px] font-medium leading-4">
-              {metaHead.length > 0 && (
-                <span className="overflow-hidden text-ellipsis text-ods-text-tertiary">
-                  {metaHead.join(" · ")}
-                </span>
+    <div className="flex w-full flex-col gap-3 rounded-ods-12 bg-white p-4">
+      {rating && (
+        <div
+          className="flex gap-0.5"
+          role="img"
+          aria-label={`별점 ${rating.value}점 만점 ${rating.max}점`}
+        >
+          {Array.from({ length: rating.max }).map((_, i) => (
+            <span key={i} className="inline-flex shrink-0" aria-hidden>
+              {i < rating.value ? (
+                <IconStarFilled size={18} className="text-ods-star-yellow" />
+              ) : (
+                <IconStar size={18} className="text-ods-star-yellow opacity-45" />
               )}
-              {metaTail && (
-                <>
-                  <span className="text-[#c1c1c1]">|</span>
-                  <span className="text-ods-text-tertiary">{metaTail}</span>
-                </>
-              )}
-            </div>
-          )}
+            </span>
+          ))}
         </div>
-        {media ? (
-          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[10px]">
-            <OdsAssetRenderer
-              asset={media}
-              size={32}
-              className="absolute inset-0 flex h-full w-full items-center justify-center object-cover"
-              onRequestSlotEdit={onRequestSlotEdit}
-            />
-            <div className="absolute inset-0 bg-black/5" />
+      )}
+      <div className="flex flex-col gap-1.5 tracking-[-0.3px]">
+        {title && (
+          <h3 className="whitespace-pre-line font-pretendard text-[16px] font-semibold leading-5 text-ods-text-primary">
+            {title}
+          </h3>
+        )}
+        {meta && meta.length > 0 && (
+          <div className="flex items-center gap-1 whitespace-nowrap font-pretendard text-[12px] font-medium leading-4">
+            {metaHead.length > 0 && (
+              <span className="overflow-hidden text-ellipsis text-ods-text-tertiary">
+                {metaHead.join(" · ")}
+              </span>
+            )}
+            {metaTail && (
+              <>
+                <span className="text-[#c1c1c1]">|</span>
+                <span className="text-ods-text-tertiary">{metaTail}</span>
+              </>
+            )}
           </div>
-        ) : onRequestSlotEdit ? (
-          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[10px]">
-            <OdsAssetRenderer
-              asset={{ type: "image", alt: "미디어 슬롯" }}
-              size={32}
-              className="absolute inset-0 flex h-full w-full items-center justify-center object-cover"
-              onRequestSlotEdit={onRequestSlotEdit}
-            />
-            <div className="absolute inset-0 bg-black/5" />
-          </div>
-        ) : null}
+        )}
       </div>
       {body && (
-        <p className="font-pretendard text-[14px] leading-5 tracking-[-0.3px] text-ods-text-primary line-clamp-3">
+        <p className="mt-1 font-pretendard text-[14px] leading-5 tracking-[-0.3px] text-ods-text-primary line-clamp-3">
           {renderRichText(body)}
         </p>
       )}
@@ -575,7 +623,7 @@ function CardReviewCell({
  *            stepNumber 가 별도로 있으면 "{n}. {title}" 으로 prefix.
  * - body   : Body15 Regular 15/24 -0.3 #141414 opacity-80, 2줄 ellipsis (whitespace-pre-line).
  */
-function CardStepCell({
+function CardLeadingAssetCell({
   cell,
   onRequestSlotEdit,
 }: {
@@ -587,38 +635,31 @@ function CardStepCell({
   const body = asText(slot(cell, "body"));
   const media = asAsset(slot(cell, "media"));
   const displayTitle = stepNumber && title ? `${stepNumber}. ${title}` : title;
+  // 디자인 시안 (Figma 1:49) 의 기본 그래픽 에셋 — 이미지 슬롯이 비어 있을 때도 항상 에셋 렌더
+  const fallbackAsset: import("@/schema/doc").AssetRef = {
+    type: "image",
+    alt: "그래픽",
+    assetId: "AssetMotionFaceSmilingCapHeadsetLargeAnimatedImage",
+  };
   return (
     <div
-      className="flex h-[260px] w-full flex-col items-center justify-between gap-4 rounded-ods-12 px-5 pb-5"
+      // 디자인 시안: 좌측 정렬(items-start), 하단 패딩 20px(pb-5)
+      className="flex h-[260px] w-full flex-col items-start justify-between gap-4 rounded-ods-12 px-5 pb-5"
       style={{
         backgroundImage:
           "linear-gradient(173.759deg, rgba(239,239,239,0.2) 1.5877%, rgba(139,195,235,0.2) 92.346%), linear-gradient(90deg, rgb(245,245,245) 0%, rgb(245,245,245) 100%)",
       }}
     >
-      <div className="flex w-full max-w-[240px] shrink-0 flex-col items-center pt-2">
+      <div className="flex w-full max-w-[240px] shrink-0 flex-col items-start pt-2">
         <div className="relative h-[160px] w-full overflow-hidden">
-          {media ? (
-            <OdsAssetRenderer
-              asset={media}
-              className="absolute inset-0 flex h-full w-full items-center justify-center object-contain"
-              onRequestSlotEdit={onRequestSlotEdit}
-            />
-          ) : onRequestSlotEdit ? (
-            <OdsAssetRenderer
-              asset={{ type: "image", alt: "그래픽 슬롯" }}
-              className="absolute inset-0 flex h-full w-full items-center justify-center object-contain"
-              onRequestSlotEdit={onRequestSlotEdit}
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center">
-              <span className="rounded-ods-12 bg-ods-primary px-8 py-4 font-pretendard text-[16px] font-semibold leading-6 tracking-[-0.3px] text-white">
-                {title ?? "상담 신청하기"}
-              </span>
-            </div>
-          )}
+          <OdsAssetRenderer
+            asset={media ?? fallbackAsset}
+            className="absolute inset-0 flex h-full w-full items-center justify-center object-contain"
+            onRequestSlotEdit={onRequestSlotEdit}
+          />
         </div>
       </div>
-      <div className="flex w-full shrink-0 flex-col gap-1 tracking-[-0.3px] text-ods-text-primary">
+      <div className="flex w-full shrink-0 flex-col gap-1 text-left tracking-[-0.3px] text-ods-text-primary">
         {displayTitle && (
           <h3 className="overflow-hidden text-ellipsis whitespace-nowrap font-pretendard text-[20px] font-semibold leading-7 opacity-80">
             {displayTitle}
@@ -687,6 +728,174 @@ function ListCell({
           </p>
         ) : null}
       </a>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Table 카드 — Figma 2:166 (table) 스펙
+//
+// 구조:
+//   ┌────────────────────────┐  ← 타이틀 바 (Heading17 SemiBold, h-40)
+//   │       타이틀           │
+//   ├────────────────────────┤
+//   │     row 텍스트 1       │  ← row (Body16 Medium 또는 Semibold, h-64)
+//   │  ─── divider 1px ───   │
+//   │     row 텍스트 2       │
+//   │       ...              │
+//   └────────────────────────┘
+//
+// cell.slots.title         → 타이틀 바 텍스트
+// cell.slots.meta.items    → 각 row 텍스트
+// cell.theme               → grey / blue / green (색상 + 보더 + 섀도우)
+// ---------------------------------------------------------------------------
+
+const TABLE_THEMES: Record<CardCellTheme, {
+  titleBar: string;
+  titleColor: string;
+  rowBg: string;
+  rowColor: string;
+  rowFont: "medium" | "semibold";
+  divider: string;
+  border: string;
+  shadow: string;
+  rowPaddingX: number;
+}> = {
+  grey: {
+    titleBar: "#E0E0E0",
+    titleColor: "#141414",
+    rowBg: "#F5F5F5",
+    rowColor: "#141414",
+    rowFont: "medium",
+    divider: "#E0E0E0",
+    border: "none",
+    shadow: "none",
+    rowPaddingX: 12,
+  },
+  blue: {
+    titleBar: "#00A1FF",
+    titleColor: "#FFFFFF",
+    rowBg: "#F0F8FC",
+    rowColor: "#141414",
+    rowFont: "medium",
+    divider: "#EDEDED",
+    border: "1px solid #00A1FF",
+    shadow: "none",
+    rowPaddingX: 16,
+  },
+  green: {
+    titleBar: "#0AB261",
+    titleColor: "#FFFFFF",
+    rowBg: "#F2FFF8",
+    rowColor: "#05924E",
+    rowFont: "semibold",
+    divider: "#EDEDED",
+    border: "2px solid #0AB261",
+    shadow: "0 0 30px 0 rgba(10, 178, 97, 0.3)",
+    rowPaddingX: 20,
+  },
+};
+
+function CardTableCell({ cell }: { cell: CardCell }) {
+  const theme = TABLE_THEMES[cell.theme ?? "grey"];
+  const title = asText(slot(cell, "title")) ?? "";
+  const meta = asMeta(slot(cell, "meta")) ?? [];
+
+  return (
+    <div
+      className="flex w-full min-w-0 flex-col overflow-hidden rounded-ods-8"
+      style={{
+        border: theme.border,
+        boxShadow: theme.shadow,
+      }}
+    >
+      {/* 타이틀 바 */}
+      <div
+        className="flex h-10 w-full flex-col items-center justify-center"
+        style={{ background: theme.titleBar }}
+      >
+        <p
+          className="w-full text-center font-pretendard text-[17px] font-semibold leading-[22px] tracking-[-0.3px]"
+          style={{ color: theme.titleColor }}
+        >
+          {title}
+        </p>
+      </div>
+
+      {/* row 컨테이너 */}
+      <div
+        className="flex w-full flex-col items-stretch"
+        style={{
+          background: theme.rowBg,
+          padding: `0 ${theme.rowPaddingX}px 8px`,
+        }}
+      >
+        {meta.map((rowText, i) => (
+          <div key={i}>
+            <div className="flex h-16 w-full flex-col items-center justify-center">
+              <p
+                className={cn(
+                  "w-full whitespace-pre-line text-center font-pretendard text-[16px] leading-5 tracking-[-0.3px]",
+                  theme.rowFont === "semibold" ? "font-semibold" : "font-medium"
+                )}
+                style={{ color: theme.rowColor }}
+              >
+                {rowText}
+              </p>
+            </div>
+            {i < meta.length - 1 && (
+              <div
+                aria-hidden
+                className="h-px w-full"
+                style={{ background: theme.divider }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// FAQ 카드 — accordion (collapsible Q&A)
+//
+// cell.slots.title → 질문 (Body16 SemiBold)
+// cell.slots.body  → 답변 (Body14 Regular, 펼쳤을 때만)
+// ODS 토큰: bg-white, border-ods-border-light, text-ods-text-primary / -secondary, rounded-ods-8.
+// ---------------------------------------------------------------------------
+
+function CardFaqCell({ cell }: { cell: CardCell }) {
+  const [open, setOpen] = useState(false);
+  const question = asText(slot(cell, "title")) ?? "";
+  const answer = asText(slot(cell, "body")) ?? "";
+
+  return (
+    <div className="w-full overflow-hidden rounded-ods-8 border border-ods-border-light bg-white">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-ods-surface-gray"
+      >
+        <span className="font-pretendard text-[16px] font-semibold leading-5 tracking-[-0.3px] text-ods-text-primary">
+          {question}
+        </span>
+        <IconChevronDown
+          size={18}
+          className={cn(
+            "shrink-0 text-ods-text-tertiary transition-transform duration-200",
+            open && "rotate-180"
+          )}
+        />
+      </button>
+      {open && (
+        <div className="border-t border-ods-border-light px-5 py-4">
+          <p className="whitespace-pre-line font-pretendard text-[14px] leading-5 tracking-[-0.3px] text-ods-text-secondary">
+            {answer}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

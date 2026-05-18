@@ -15,11 +15,13 @@ function buildCardInstance(args: {
   usage: CardUsagePresetId;
   layout: CardLayoutSettings;
   cells: CardCell[];
+  cardType?: import("@/schema/card").ImgcardType;
 }): ComponentInstance {
   const props: CardProps = {
     usage: args.usage,
     layout: args.layout,
     cells: args.cells,
+    cardType: args.cardType,
   };
   return {
     id: args.id,
@@ -82,8 +84,8 @@ export const carouselLayout: CardLayoutSettings = {
 };
 
 export const rowLayout: CardLayoutSettings = {
-  type: "row",
-  settings: { align: "start", gap: 16, wrap: false },
+  type: "list",
+  settings: { gap: 16, align: "start" },
 };
 
 // ───────────────────────────────────────────────────────────
@@ -124,10 +126,11 @@ export const heroFixture: Section = {
 };
 
 export function buildCardSectionFixture(args: {
-  preset: "usp" | "coverage" | "review" | "process" | "cross-sell";
+  preset: "usp" | "review" | "process" | "cross-sell" | "faq";
   usage: CardUsagePresetId;
   layout: CardLayoutSettings;
   cells: CardCell[];
+  cardType?: import("@/schema/card").ImgcardType;
   sectionTitle?: string;
   sectionSubtitle?: string;
 }): Section {
@@ -147,6 +150,7 @@ export function buildCardSectionFixture(args: {
           usage: args.usage,
           layout: args.layout,
           cells: args.cells,
+          cardType: args.cardType,
         }),
       ],
     },
@@ -157,25 +161,16 @@ export function buildCardSectionFixture(args: {
 
 export const uspFixture = buildCardSectionFixture({
   preset: "usp",
-  usage: "usp",
+  usage: "imgcard",
   layout: gridLayout,
   cells: uspCells,
   sectionTitle: "이사, 이런 게 고민이셨죠?",
   sectionSubtitle: "이사할 때 가장 많이 듣는 4가지 걱정",
 });
 
-export const coverageFixture = buildCardSectionFixture({
-  preset: "coverage",
-  usage: "usp",
-  layout: { type: "grid", settings: { columns: { mobile: 1, tablet: 2, desktop: 2 }, gap: 16 } },
-  cells: uspCells.slice(0, 2),
-  sectionTitle: "안전한 이사를 위한\n책임보장 시스템",
-  sectionSubtitle: "Coverage",
-});
-
 export const reviewFixture = buildCardSectionFixture({
   preset: "review",
-  usage: "review",
+  usage: "reviewcard",
   layout: carouselLayout,
   cells: reviewCells,
   sectionTitle: "10만+ 고객의 진짜 후기",
@@ -184,7 +179,8 @@ export const reviewFixture = buildCardSectionFixture({
 
 export const processFixture = buildCardSectionFixture({
   preset: "process",
-  usage: "step",
+  usage: "imgcard",
+  cardType: "leading-asset",
   layout: gridLayout,
   cells: stepCells,
   sectionTitle: "이사는 4단계로 끝!",
@@ -193,33 +189,106 @@ export const processFixture = buildCardSectionFixture({
 
 export const crossSellFixture = buildCardSectionFixture({
   preset: "cross-sell",
-  usage: "service",
-  layout: { type: "row", settings: { align: "start", gap: 16, wrap: true } },
+  usage: "listcard",
+  layout: { type: "list", settings: { gap: 16, align: "start" } },
   cells: serviceCells,
   sectionTitle: "이사 외에도\n오늘의집의 다양한 서비스",
   sectionSubtitle: "Cross-sell",
+});
+
+// FAQ — accordion (Q&A)
+const faqCells: CardCell[] = [
+  {
+    id: "faq1",
+    slots: {
+      title: { kind: "text", text: "이사 견적은 어떻게 받나요?" },
+      body: { kind: "text", text: "이사 일정과 물량을 입력하시면 검증된 업체의 견적을 한 번에 비교해서 받아보실 수 있어요. 카카오톡 또는 전화로 추가 상담도 가능합니다." },
+    },
+  },
+  {
+    id: "faq2",
+    slots: {
+      title: { kind: "text", text: "파손 보상 범위는 어떻게 되나요?" },
+      body: { kind: "text", text: "오늘의집 책임보장 적용 시 파손·분실에 대해 최대 1천만원까지 보상해 드립니다." },
+    },
+  },
+  {
+    id: "faq3",
+    slots: {
+      title: { kind: "text", text: "예약 후 일정 변경이 가능한가요?" },
+      body: { kind: "text", text: "이사 예정일 3일 전까지는 무료로 일정 변경이 가능합니다. 그 이후에는 업체 정책에 따라 변경 가능 여부가 달라집니다." },
+    },
+  },
+];
+
+export const faqFixture = buildCardSectionFixture({
+  preset: "faq",
+  usage: "faqcard",
+  layout: { type: "list", settings: { gap: 8, align: "start" } },
+  cells: faqCells,
+  sectionTitle: "자주 묻는 질문",
+  sectionSubtitle: "FAQ",
 });
 
 // ───────────────────────────────────────────────────────────
 // 그 외 섹션 (table / cta-form / sticky-cta / footer)
 // ───────────────────────────────────────────────────────────
 
+// Figma 2:166 (table) — 2row 변형 (grey + blue 비교)
+const tablecardCells: CardCell[] = [
+  {
+    id: "tc-other",
+    theme: "grey",
+    slots: {
+      title: { kind: "text", text: "타사 서비스" },
+      meta: {
+        kind: "meta",
+        items: [
+          "단순 업체 연결",
+          "업체마다 다른 견적",
+          "사고 발생 시\n직접 업체와 협의",
+          "현장 추가금\n발생 가능",
+          "업체별로\n다른 보상 범위",
+        ],
+      },
+    },
+  },
+  {
+    id: "tc-ohou",
+    theme: "blue",
+    slots: {
+      title: { kind: "text", text: "오늘의집 이사" },
+      meta: {
+        kind: "meta",
+        items: [
+          "파트너사 관리",
+          "평균 견적 정보 제공",
+          "오늘의집 중재",
+          "계약 외 청구 시\n최대 200% 보상",
+          "파손·분실 사고 시\n최대 200만원 보상",
+        ],
+      },
+    },
+  },
+];
+
 export const tableFixture: Section = {
   id: "fix-table",
   preset: "table",
-  name: "비교 테이블",
+  name: "비교 카드",
   locked: false,
   props: {
     sectionTitle: "왜 오늘의집 이사인가요?",
     sectionSubtitle: "Comparison",
-    colHeaders: ["타사", "오늘의집", "책임보장"],
   },
   slots: {
-    rows: [
-      { id: "tr1", preset: "table-row", props: { label: "비교 견적", colA: "X", colB: "O", colC: "O" }, assets: [] },
-      { id: "tr2", preset: "table-row", props: { label: "파손 보상", colA: "X", colB: "O", colC: "O" }, assets: [] },
-      { id: "tr3", preset: "table-row", props: { label: "사전 방문", colA: "△", colB: "O", colC: "O" }, assets: [] },
-      { id: "tr4", preset: "table-row", props: { label: "투명 가격", colA: "X", colB: "O", colC: "O" }, assets: [] },
+    content: [
+      buildCardInstance({
+        id: "card-table",
+        usage: "tablecard",
+        layout: { type: "grid", settings: { columns: { mobile: 1, tablet: 2, desktop: 2 }, gap: 2 } },
+        cells: tablecardCells,
+      }),
     ],
   },
   assets: [],
@@ -275,7 +344,7 @@ export const fixtureByPreset = {
   hero: heroFixture,
   usp: uspFixture,
   table: tableFixture,
-  coverage: coverageFixture,
+  faq: faqFixture,
   review: reviewFixture,
   process: processFixture,
   "cross-sell": crossSellFixture,

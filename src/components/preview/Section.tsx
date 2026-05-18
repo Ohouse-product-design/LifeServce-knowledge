@@ -22,7 +22,6 @@ import FooterTemplate from "./sections/FooterTemplate";
 import HeaderTemplate from "./sections/HeaderTemplate";
 import HeroTemplate from "./sections/HeroTemplate";
 import StickyCtaTemplate from "./sections/StickyCtaTemplate";
-import TableTemplate from "./sections/TableTemplate";
 import {
   LeadContactVariant,
   LeadFormVariant,
@@ -86,8 +85,7 @@ export default function Section({ section, viewport, onRequestAssetSlot }: Props
         onRequestAssetSlot={onRequestAssetSlot}
       />
     ),
-    table: () => <TableTemplate section={section} />,
-    coverage: () => (
+    table: () => (
       <CardSectionTemplate
         section={section}
         viewport={viewport}
@@ -116,6 +114,14 @@ export default function Section({ section, viewport, onRequestAssetSlot }: Props
         section={section}
         viewport={viewport}
         bg="gray"
+        onRequestAssetSlot={onRequestAssetSlot}
+      />
+    ),
+    faq: () => (
+      <CardSectionTemplate
+        section={section}
+        viewport={viewport}
+        bg="white"
         onRequestAssetSlot={onRequestAssetSlot}
       />
     ),

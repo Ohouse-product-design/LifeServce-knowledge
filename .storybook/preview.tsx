@@ -7,19 +7,26 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          "Gallery",
-          ["Section & Card variants"],
-          "Catalog",
-          [
-            "Section presets",
-            ["Component presets", ["Overview", "Card", "Table row", "Form field", "Tab", "Badge"]],
-          ],
           "Preview",
-          ["Builder", "ODS", "Lead", "Marketing"],
+          ["Section", "Card", "Full Page"],
+          "Builder",
+          ["Editor"],
+          "Example",
         ],
       },
     },
-    layout: "fullscreen",
+    // 카드/섹션 컴포넌트가 화면 가운데에 떠 있도록 centered.
+    // 페이지 전체 프리뷰가 필요한 스토리는 자체 parameters.layout 으로 fullscreen override.
+    layout: "centered",
+    backgrounds: {
+      default: "white",
+      values: [
+        { name: "white", value: "#FFFFFF" },
+        { name: "grey", value: "#F5F5F5" },
+        { name: "light", value: "#F7F9FA" },
+        { name: "builder", value: "#0F1115" },
+      ],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -33,15 +40,6 @@ const preview: Preview = {
         desktop: { name: "Desktop (1280)", styles: { width: "1280px", height: "800px" } },
       },
       defaultViewport: "desktop",
-    },
-    backgrounds: {
-      default: "white",
-      values: [
-        { name: "white", value: "#FFFFFF" },
-        { name: "grey", value: "#F5F5F5" },
-        { name: "light", value: "#F7F9FA" },
-        { name: "builder", value: "#0F1115" },
-      ],
     },
     a11y: { test: "todo" },
   },
